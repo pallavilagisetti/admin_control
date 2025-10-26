@@ -1,0 +1,33 @@
+# Documentation files (not needed in repository)
+*.docx
+*.pdf
+*.zip
+*.html
+
+# Temporary files
+dia_files/
+dia.html
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+
+# Temporary directories
+tmp/
+temp/
