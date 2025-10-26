@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #000000;
+  --sidebar: #0a0a0a;
+  --card: #0f0f10;
+  --border: #1a1a1a;
+  --text-primary: #ffffff;
+  --text-secondary: #9ca3af;
+  --accent: #3b82f6;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+}
+
+html, body, #__next {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.container-app {
+  @apply max-w-7xl mx-auto px-6;
+}
+
+.card {
+  @apply bg-[var(--card)] rounded-lg shadow-sm border border-[var(--border)] backdrop-blur-sm;
+}
+
+.sidebar {
+  @apply bg-[var(--sidebar)] border-r border-[var(--border)];
+}
+
+.metric-card {
+  @apply bg-gradient-to-br from-[var(--card)] to-[var(--sidebar)] rounded-lg p-6 border border-[var(--border)];
+}
+
+.btn-primary {
+  @apply bg-[var(--accent)] hover:bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors;
+}
+
+.btn-secondary {
+  @apply bg-[var(--card)] hover:bg-[var(--border)] text-[var(--text-primary)] px-4 py-2 rounded-md text-sm font-medium border border-[var(--border)] transition-colors;
+}
+
+.input-field {
+  @apply bg-[var(--card)] border border-[var(--border)] rounded-md px-3 py-2 text-[var(--text-primary)] placeholder-[var(--text-secondary)] focus:border-[var(--accent)] focus:outline-none;
+}
+
+/* Hide scrollbars for individual sections */
+.sidebar {
+  overflow: hidden;
+}
+
+/* Ensure only main content area has scrollbar */
+.main-content {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar styling for main content */
+.main-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.main-content::-webkit-scrollbar-track {
+  background: var(--sidebar);
+}
+
+.main-content::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+.main-content::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* Hide scrollbars for individual components */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+

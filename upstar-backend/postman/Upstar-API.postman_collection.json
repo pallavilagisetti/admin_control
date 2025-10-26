@@ -1,0 +1,965 @@
+{
+  "info": {
+    "name": "Upstar API Collection",
+    "description": "Complete API collection for Upstar backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{authToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/api",
+      "type": "string"
+    },
+    {
+      "key": "authToken",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Verify Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"{{authToken}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/verify",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "verify"]
+            }
+          }
+        },
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/auth/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "profile"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Get Overview",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/dashboard/overview",
+              "host": ["{{baseUrl}}"],
+              "path": ["dashboard", "overview"]
+            }
+          }
+        },
+        {
+          "name": "Generate Analytics Report",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/dashboard/analytics-report",
+              "host": ["{{baseUrl}}"],
+              "path": ["dashboard", "analytics-report"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/users?page=1&limit=50",
+              "host": ["{{baseUrl}}"],
+              "path": ["users"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "50"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get User by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}"]
+            }
+          }
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{userId}}\",\n  \"roles\": [\"user\", \"moderator\"],\n  \"active\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["users"]
+            }
+          }
+        },
+        {
+          "name": "Login as User",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}/login-as",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}", "login-as"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Resumes",
+      "item": [
+        {
+          "name": "Get All Resumes",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/resumes?page=1&limit=50",
+              "host": ["{{baseUrl}}"],
+              "path": ["resumes"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "50"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Resume by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/resumes/{{resumeId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["resumes", "{{resumeId}}"]
+            }
+          }
+        },
+        {
+          "name": "Reprocess Resume",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/resumes/{{resumeId}}/reprocess",
+              "host": ["{{baseUrl}}"],
+              "path": ["resumes", "{{resumeId}}", "reprocess"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Skills",
+      "item": [
+        {
+          "name": "Get Skills Analytics",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/skills/analytics",
+              "host": ["{{baseUrl}}"],
+              "path": ["skills", "analytics"]
+            }
+          }
+        },
+        {
+          "name": "Get Skills Errors",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/skills/errors",
+              "host": ["{{baseUrl}}"],
+              "path": ["skills", "errors"]
+            }
+          }
+        },
+        {
+          "name": "Get Skills Categories",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/skills/categories",
+              "host": ["{{baseUrl}}"],
+              "path": ["skills", "categories"]
+            }
+          }
+        },
+        {
+          "name": "Get Skills Trends",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/skills/trends",
+              "host": ["{{baseUrl}}"],
+              "path": ["skills", "trends"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Jobs",
+      "item": [
+        {
+          "name": "Get All Jobs",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/jobs?page=1&limit=50",
+              "host": ["{{baseUrl}}"],
+              "path": ["jobs"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "50"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Job by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/jobs/{{jobId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["jobs", "{{jobId}}"]
+            }
+          }
+        },
+        {
+          "name": "Sync Jobs",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/jobs/sync",
+              "host": ["{{baseUrl}}"],
+              "path": ["jobs", "sync"]
+            }
+          }
+        },
+        {
+          "name": "Get Job Analytics",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/jobs/analytics",
+              "host": ["{{baseUrl}}"],
+              "path": ["jobs", "analytics"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Analytics",
+      "item": [
+        {
+          "name": "Get Skill Analysis",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/analytics/skill-analysis",
+              "host": ["{{baseUrl}}"],
+              "path": ["analytics", "skill-analysis"]
+            }
+          }
+        },
+        {
+          "name": "Get Market Trends",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/analytics/market-trends",
+              "host": ["{{baseUrl}}"],
+              "path": ["analytics", "market-trends"]
+            }
+          }
+        },
+        {
+          "name": "Get Job Performance",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/analytics/job-performance",
+              "host": ["{{baseUrl}}"],
+              "path": ["analytics", "job-performance"]
+            }
+          }
+        },
+        {
+          "name": "Get Geographic Data",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/analytics/geographic",
+              "host": ["{{baseUrl}}"],
+              "path": ["analytics", "geographic"]
+            }
+          }
+        },
+        {
+          "name": "Get User Engagement",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/analytics/user-engagement",
+              "host": ["{{baseUrl}}"],
+              "path": ["analytics", "user-engagement"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "Get Subscriptions",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/payments/subscriptions",
+              "host": ["{{baseUrl}}"],
+              "path": ["payments", "subscriptions"]
+            }
+          }
+        },
+        {
+          "name": "Get Transactions",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/payments/transactions",
+              "host": ["{{baseUrl}}"],
+              "path": ["payments", "transactions"]
+            }
+          }
+        },
+        {
+          "name": "Get Payment Analytics",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/payments/analytics",
+              "host": ["{{baseUrl}}"],
+              "path": ["payments", "analytics"]
+            }
+          }
+        },
+        {
+          "name": "Process Refund",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transactionId\": \"{{transactionId}}\",\n  \"amount\": 19.99,\n  \"reason\": \"Customer request\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/payments/refunds",
+              "host": ["{{baseUrl}}"],
+              "path": ["payments", "refunds"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "AI Settings",
+      "item": [
+        {
+          "name": "Get AI Settings",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/ai/settings",
+              "host": ["{{baseUrl}}"],
+              "path": ["ai", "settings"]
+            }
+          }
+        },
+        {
+          "name": "Update AI Settings",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"settings\": [\n    {\n      \"id\": \"confidence_threshold\",\n      \"value\": 0.9\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/ai/settings",
+              "host": ["{{baseUrl}}"],
+              "path": ["ai", "settings"]
+            }
+          }
+        },
+        {
+          "name": "Get Model Status",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/ai/models/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["ai", "models", "status"]
+            }
+          }
+        },
+        {
+          "name": "Test AI Model",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"input\": \"Test input for AI model\",\n  \"modelId\": \"gpt-4\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/ai/models/{{modelId}}/test",
+              "host": ["{{baseUrl}}"],
+              "path": ["ai", "models", "{{modelId}}", "test"]
+            }
+          }
+        },
+        {
+          "name": "Get AI Performance",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/ai/performance",
+              "host": ["{{baseUrl}}"],
+              "path": ["ai", "performance"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "System Health",
+      "item": [
+        {
+          "name": "Get System Health",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/system/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["system", "health"]
+            }
+          }
+        },
+        {
+          "name": "Get System Activity",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/system/activity",
+              "host": ["{{baseUrl}}"],
+              "path": ["system", "activity"]
+            }
+          }
+        },
+        {
+          "name": "Get System Alerts",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/system/alerts",
+              "host": ["{{baseUrl}}"],
+              "path": ["system", "alerts"]
+            }
+          }
+        },
+        {
+          "name": "Resolve Alert",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/system/alerts/{{alertId}}/resolve",
+              "host": ["{{baseUrl}}"],
+              "path": ["system", "alerts", "{{alertId}}", "resolve"]
+            }
+          }
+        },
+        {
+          "name": "Get System Metrics",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/system/metrics",
+              "host": ["{{baseUrl}}"],
+              "path": ["system", "metrics"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Notifications",
+      "item": [
+        {
+          "name": "Get Notification History",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/notifications/history",
+              "host": ["{{baseUrl}}"],
+              "path": ["notifications", "history"]
+            }
+          }
+        },
+        {
+          "name": "Send Notification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Test Notification\",\n  \"content\": \"This is a test notification\",\n  \"audience\": \"All Users\",\n  \"schedule\": \"now\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/notifications/send",
+              "host": ["{{baseUrl}}"],
+              "path": ["notifications", "send"]
+            }
+          }
+        },
+        {
+          "name": "Get Reminders",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/notifications/reminders",
+              "host": ["{{baseUrl}}"],
+              "path": ["notifications", "reminders"]
+            }
+          }
+        },
+        {
+          "name": "Create Reminder",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"New Reminder\",\n  \"description\": \"Reminder description\",\n  \"cadence\": \"Weekly\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/notifications/reminders",
+              "host": ["{{baseUrl}}"],
+              "path": ["notifications", "reminders"]
+            }
+          }
+        },
+        {
+          "name": "Toggle Reminder",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/notifications/reminders/{{reminderId}}/toggle",
+              "host": ["{{baseUrl}}"],
+              "path": ["notifications", "reminders", "{{reminderId}}", "toggle"]
+            }
+          }
+        },
+        {
+          "name": "Get Notification Templates",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/notifications/templates",
+              "host": ["{{baseUrl}}"],
+              "path": ["notifications", "templates"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "CMS",
+      "item": [
+        {
+          "name": "Get Articles",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/cms/articles",
+              "host": ["{{baseUrl}}"],
+              "path": ["cms", "articles"]
+            }
+          }
+        },
+        {
+          "name": "Create Article",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"New Article\",\n  \"slug\": \"new-article\",\n  \"content\": \"Article content...\",\n  \"status\": \"published\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/cms/articles",
+              "host": ["{{baseUrl}}"],
+              "path": ["cms", "articles"]
+            }
+          }
+        },
+        {
+          "name": "Get Article by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/cms/articles/{{articleId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["cms", "articles", "{{articleId}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Article",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Article\",\n  \"content\": \"Updated content...\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/cms/articles/{{articleId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["cms", "articles", "{{articleId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Article",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/cms/articles/{{articleId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["cms", "articles", "{{articleId}}"]
+            }
+          }
+        },
+        {
+          "name": "Get CMS Categories",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/cms/categories",
+              "host": ["{{baseUrl}}"],
+              "path": ["cms", "categories"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "File Upload",
+      "item": [
+        {
+          "name": "Upload Resume",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "userId",
+                  "value": "{{userId}}",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/upload/resume",
+              "host": ["{{baseUrl}}"],
+              "path": ["upload", "resume"]
+            }
+          }
+        },
+        {
+          "name": "Upload Avatar",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/upload/avatar",
+              "host": ["{{baseUrl}}"],
+              "path": ["upload", "avatar"]
+            }
+          }
+        },
+        {
+          "name": "Upload Document",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "category",
+                  "value": "general",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/upload/document",
+              "host": ["{{baseUrl}}"],
+              "path": ["upload", "document"]
+            }
+          }
+        },
+        {
+          "name": "Delete File",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/upload/delete/{{fileId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["upload", "delete", "{{fileId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Job Queue",
+      "item": [
+        {
+          "name": "Process Resume",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resumeId\": \"{{resumeId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/jobs/process-resume",
+              "host": ["{{baseUrl}}"],
+              "path": ["jobs", "process-resume"]
+            }
+          }
+        },
+        {
+          "name": "Match Users",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"resumeId\": \"{{resumeId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/jobs/match-users",
+              "host": ["{{baseUrl}}"],
+              "path": ["jobs", "match-users"]
+            }
+          }
+        },
+        {
+          "name": "Get Job Status",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/jobs/status/{{jobId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["jobs", "status", "{{jobId}}"]
+            }
+          }
+        },
+        {
+          "name": "Get Queue Stats",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/jobs/queue-stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["jobs", "queue-stats"]
+            }
+          }
+        },
+        {
+          "name": "Retry Job",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/jobs/retry/{{jobId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["jobs", "retry", "{{jobId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health Check",
+      "item": [
+        {
+          "name": "Basic Health Check",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            }
+          }
+        },
+        {
+          "name": "Detailed Health Check",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/health/detailed",
+              "host": ["{{baseUrl}}"],
+              "path": ["health", "detailed"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+
+
+
+
+

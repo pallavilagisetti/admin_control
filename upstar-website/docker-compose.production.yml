@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  # Frontend Application
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+    container_name: upstar-frontend-prod
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+      - NEXT_PUBLIC_APP_NAME=${NEXT_PUBLIC_APP_NAME}
+      - NEXT_PUBLIC_APP_VERSION=${NEXT_PUBLIC_APP_VERSION}
+      - NEXT_PUBLIC_APP_ENVIRONMENT=production
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Nginx Reverse Proxy for Frontend
+  nginx:
+    image: nginx:alpine
+    container_name: upstar-nginx-frontend-prod
+    volumes:
+      - ./nginx-frontend.conf:/etc/nginx/nginx.conf
+      - ./ssl:/etc/nginx/ssl
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - frontend
+    restart: unless-stopped
+
+
