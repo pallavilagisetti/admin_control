@@ -68,7 +68,13 @@ router.get('/settings', requirePermission(['ai:read']), asyncHandler(async (req,
       ORDER BY category, name
     `;
 
-    const result = await query(settingsQuery);
+    let result;
+    try {
+      result = await query(settingsQuery);
+    } catch (error) {
+      // Fallback if ai_settings table doesn't exist
+      result = { rows: [] };
+    }
     
     data = {
       settings: result.rows.map(setting => ({
@@ -266,7 +272,13 @@ router.get('/models/status', requirePermission(['ai:read']), asyncHandler(async 
       ORDER BY name
     `;
 
-    const result = await query(modelsQuery);
+    let result;
+    try {
+      result = await query(modelsQuery);
+    } catch (error) {
+      // Fallback if ai_models table doesn't exist
+      result = { rows: [] };
+    }
     
     data = {
       models: result.rows.map(model => ({
@@ -483,8 +495,20 @@ router.get('/performance', requirePermission(['ai:read']), asyncHandler(async (r
     `;
 
     const [performanceResult, requestsByModelResult] = await Promise.all([
-      query(performanceQuery, [startDate]),
-      query(requestsByModelQuery, [startDate])
+      (async () => {
+        try {
+          return await query(performanceQuery, [startDate]);
+        } catch (error) {
+          return { rows: [{ total_requests: 0, avg_latency: 0, success_rate: 0, total_cost: 0 }] };
+        }
+      })(),
+      (async () => {
+        try {
+          return await query(requestsByModelQuery, [startDate]);
+        } catch (error) {
+          return { rows: [] };
+        }
+      })()
     ]);
 
     const performance = performanceResult.rows[0];

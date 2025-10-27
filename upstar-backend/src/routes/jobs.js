@@ -179,17 +179,17 @@ router.get('/', asyncHandler(async (req, res) => {
       j.id,
       j.title,
       j.organization,
-      j.location,
+      j.location_type as location,
       j.employment_type,
-      j.remote,
+      j.remote_derived as remote,
       j.date_posted,
-      j.description,
-      j.salary_min,
-      j.salary_max,
-      j.salary_currency,
-      j.skills,
-      j.application_url,
-      j.external_id
+      j.description_text as description,
+      j.ai_salary_minvalue as salary_min,
+      j.ai_salary_maxvalue as salary_max,
+      j.ai_salary_currency as salary_currency,
+      j.ai_key_skills as skills,
+      j.url as application_url,
+      j.id as external_id
     FROM job_listings j
     ${whereClause}
     ORDER BY j.date_posted DESC

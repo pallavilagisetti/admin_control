@@ -122,7 +122,14 @@ router.get('/articles', requirePermission(['cms:read']), asyncHandler(async (req
     FROM cms_articles
     ${whereClause}
   `;
-  const countResult = await query(countQuery, queryParams);
+  
+  let countResult;
+  try {
+    countResult = await query(countQuery, queryParams);
+  } catch (error) {
+    // Fallback if cms_articles table doesn't exist
+    countResult = { rows: [{ total: 0 }] };
+  }
   const total = parseInt(countResult.rows[0].total);
 
   // Get articles with pagination
@@ -145,7 +152,14 @@ router.get('/articles', requirePermission(['cms:read']), asyncHandler(async (req
   `;
   
   queryParams.push(parseInt(limit), offset);
-  const articlesResult = await query(articlesQuery, queryParams);
+  
+  let articlesResult;
+  try {
+    articlesResult = await query(articlesQuery, queryParams);
+  } catch (error) {
+    // Fallback if cms_articles table doesn't exist
+    articlesResult = { rows: [] };
+  }
 
   const articles = articlesResult.rows.map(article => ({
     id: article.id,

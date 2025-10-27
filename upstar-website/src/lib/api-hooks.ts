@@ -109,16 +109,13 @@ export function useUsers(params?: {
   status?: string;
   role?: string;
 }) {
-  // Stabilize the params object to prevent unnecessary re-renders
-  const stableParams = React.useMemo(() => params, [
+  return useApi(() => apiClient.getUsers(params), [
     params?.page,
     params?.limit,
     params?.search,
     params?.status,
     params?.role
   ]);
-  
-  return useApi(() => apiClient.getUsers(stableParams), [stableParams]);
 }
 
 export function useUser(id: string) {
@@ -183,7 +180,11 @@ export function useResumes(params?: {
   limit?: number;
   status?: string;
 }) {
-  return useApi(() => apiClient.getResumes(params), [params]);
+  return useApi(() => apiClient.getResumes(params), [
+    params?.page,
+    params?.limit,
+    params?.status
+  ]);
 }
 
 export function useResume(id: string) {
@@ -225,7 +226,10 @@ export function useSkillsErrors(params?: {
   page?: number;
   limit?: number;
 }) {
-  return useApi(() => apiClient.getSkillsErrors(params), [params]);
+  return useApi(() => apiClient.getSkillsErrors(params), [
+    params?.page,
+    params?.limit
+  ]);
 }
 
 export function useSkillsCategories() {
@@ -244,7 +248,13 @@ export function useJobs(params?: {
   location?: string;
   remote?: boolean;
 }) {
-  return useApi(() => apiClient.getJobs(params), [params]);
+  return useApi(() => apiClient.getJobs(params), [
+    params?.page,
+    params?.limit,
+    params?.search,
+    params?.location,
+    params?.remote
+  ]);
 }
 
 export function useJob(id: string) {

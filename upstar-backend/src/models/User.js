@@ -7,7 +7,7 @@ class User {
     this.name = data.name;
     this.roles = data.roles || ['user'];
     this.active = data.active !== undefined ? data.active : true;
-    this.subscriptionTier = data.subscription_tier || 'free';
+    this.tier = data.tier || 'free';
     this.country = data.country;
     this.lastLoginAt = data.last_login_at;
     this.createdAt = data.created_at;
@@ -16,13 +16,13 @@ class User {
 
   // Create a new user
   static async create(userData) {
-    const { email, name, roles = ['user'], subscriptionTier = 'free', country } = userData;
+    const { email, name, roles = ['user'], tier = 'free', country } = userData;
     
     const result = await query(
-      `INSERT INTO users (email, name, roles, subscription_tier, country, created_at, updated_at)
+      `INSERT INTO users (email, name, roles, tier, country, created_at, updated_at)
        VALUES ($1, $2, $3, $4, $5, NOW(), NOW())
        RETURNING *`,
-      [email, name, roles, subscriptionTier, country]
+      [email, name, roles, tier, country]
     );
 
     return new User(result.rows[0]);

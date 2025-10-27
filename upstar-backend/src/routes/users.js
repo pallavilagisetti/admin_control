@@ -531,7 +531,7 @@ router.get('/:id', requireOwnershipOrAdmin, asyncHandler(async (req, res) => {
         u.roles,
         u.created_at,
         u.last_login_at,
-        u.subscription_tier,
+        u.tier,
         COUNT(DISTINCT r.id) as resume_count,
         COUNT(DISTINCT jm.job_id) as matched_jobs,
         COUNT(DISTINCT a.id) as assessment_count
@@ -540,7 +540,7 @@ router.get('/:id', requireOwnershipOrAdmin, asyncHandler(async (req, res) => {
       LEFT JOIN user_job_matches jm ON u.id = jm.user_id
       LEFT JOIN assessments a ON u.id = a.user_id
       WHERE u.id = $1
-      GROUP BY u.id, u.name, u.email, u.active, u.roles, u.created_at, u.last_login_at, u.subscription_tier
+      GROUP BY u.id, u.name, u.email, u.active, u.roles, u.created_at, u.last_login_at, u.tier
     `;
 
     const result = await query(userQuery, [id]);
@@ -557,7 +557,7 @@ router.get('/:id', requireOwnershipOrAdmin, asyncHandler(async (req, res) => {
       active: user.active,
       roles: user.roles,
       profile: {
-        tier: user.subscription_tier || 'free',
+        tier: user.tier || 'free',
         createdAt: user.created_at,
         lastLogin: user.last_login_at
       },

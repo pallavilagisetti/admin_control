@@ -240,10 +240,10 @@ router.post('/send', requirePermission(['notifications:write']), [
       audienceQuery = 'SELECT COUNT(*) as count FROM users WHERE active = true';
       break;
     case 'Premium Users':
-      audienceQuery = 'SELECT COUNT(*) as count FROM users WHERE active = true AND subscription_tier IN (\'pro\', \'enterprise\')';
+      audienceQuery = 'SELECT COUNT(*) as count FROM users WHERE active = true AND tier IN (\'pro\', \'enterprise\')';
       break;
     case 'Free Users':
-      audienceQuery = 'SELECT COUNT(*) as count FROM users WHERE active = true AND subscription_tier = \'free\'';
+      audienceQuery = 'SELECT COUNT(*) as count FROM users WHERE active = true AND tier = \'free\'';
       break;
     case 'Specific Users':
       // This would require additional user selection logic
