@@ -52,6 +52,10 @@ export default function HomePage() {
           errorMessage = 'CORS error - backend server configuration issue.'
         } else if (response.error.code === 'NETWORK_ERROR') {
           errorMessage = 'Network error - please check your internet connection.'
+        } else if (response.error.code === 'UNAUTHORIZED') {
+          errorMessage = 'Authentication failed. Please log in again.'
+          router.push('/login')
+          return
         } else if (response.error.message) {
           errorMessage = response.error.message
         }

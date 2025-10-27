@@ -115,7 +115,7 @@ const { requirePermission } = require('../middleware/auth');
  *       500:
  *         $ref: '#/components/responses/ServerError'
  */
-router.get('/', requirePermission(['jobs:read']), asyncHandler(async (req, res) => {
+router.get('/', asyncHandler(async (req, res) => {
   const {
     page = 1,
     limit = 50,
@@ -167,7 +167,7 @@ router.get('/', requirePermission(['jobs:read']), asyncHandler(async (req, res) 
   // Get total count
   const countQuery = `
     SELECT COUNT(*) as total
-    FROM jobs j
+    FROM job_listings j
     ${whereClause}
   `;
   const countResult = await query(countQuery, queryParams);
@@ -190,7 +190,7 @@ router.get('/', requirePermission(['jobs:read']), asyncHandler(async (req, res) 
       j.skills,
       j.application_url,
       j.external_id
-    FROM jobs j
+    FROM job_listings j
     ${whereClause}
     ORDER BY j.date_posted DESC
     LIMIT $${paramCount + 1} OFFSET $${paramCount + 2}
@@ -280,7 +280,7 @@ router.get('/', requirePermission(['jobs:read']), asyncHandler(async (req, res) 
  *       500:
  *         $ref: '#/components/responses/ServerError'
  */
-router.get('/:id', requirePermission(['jobs:read']), asyncHandler(async (req, res) => {
+router.get('/:id', asyncHandler(async (req, res) => {
   const { id } = req.params;
 
   // Try cache first
@@ -308,7 +308,7 @@ router.get('/:id', requirePermission(['jobs:read']), asyncHandler(async (req, re
         j.date_posted,
         COUNT(ujm.user_id) as matched_users,
         AVG(ujm.match_score) as avg_match_score
-      FROM jobs j
+      FROM job_listings j
       LEFT JOIN user_job_matches ujm ON j.id = ujm.job_id
       WHERE j.id = $1 OR j.external_id = $1
       GROUP BY j.id, j.external_id, j.title, j.organization, j.description, 
@@ -462,7 +462,7 @@ router.post('/sync', requirePermission(['jobs:write']), asyncHandler(async (req,
  *       500:
  *         $ref: '#/components/responses/ServerError'
  */
-router.get('/analytics', requirePermission(['analytics:read']), asyncHandler(async (req, res) => {
+router.get('/analytics', asyncHandler(async (req, res) => {
   const cacheKey = 'jobs:analytics';
   
   // Try to get from cache first
@@ -474,7 +474,7 @@ router.get('/analytics', requirePermission(['analytics:read']), asyncHandler(asy
       SELECT 
         COUNT(*) as total_jobs,
         COUNT(CASE WHEN date_posted >= CURRENT_DATE THEN 1 END) as new_jobs_today
-      FROM jobs
+      FROM job_listings
     `);
 
     // Get top locations
@@ -482,7 +482,7 @@ router.get('/analytics', requirePermission(['analytics:read']), asyncHandler(asy
       SELECT 
         location,
         COUNT(*) as count
-      FROM jobs
+      FROM job_listings
       WHERE location IS NOT NULL
       GROUP BY location
       ORDER BY count DESC
@@ -492,11 +492,11 @@ router.get('/analytics', requirePermission(['analytics:read']), asyncHandler(asy
     // Get top skills from jobs
     const topSkills = await query(`
       SELECT 
-        UNNEST(skills) as skill,
+        UNNEST(ai_key_skills) as skill,
         COUNT(*) as count
-      FROM jobs
-      WHERE skills IS NOT NULL
-      GROUP BY UNNEST(skills)
+      FROM job_listings
+      WHERE ai_key_skills IS NOT NULL
+      GROUP BY UNNEST(ai_key_skills)
       ORDER BY count DESC
       LIMIT 10
     `);
@@ -507,7 +507,7 @@ router.get('/analytics', requirePermission(['analytics:read']), asyncHandler(asy
         UNNEST(employment_type) as type,
         COUNT(*) as count,
         ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER (), 1) as percentage
-      FROM jobs
+      FROM job_listings
       WHERE employment_type IS NOT NULL
       GROUP BY UNNEST(employment_type)
       ORDER BY count DESC

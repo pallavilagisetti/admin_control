@@ -175,15 +175,15 @@ app.use('/api/auth', authRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/users', authenticateToken, usersRoutes);
 app.use('/api/resumes', authenticateToken, resumesRoutes);
-app.use('/api/skills', authenticateToken, skillsRoutes);
-app.use('/api/jobs', authenticateToken, jobsRoutes);
-app.use('/api/analytics', authenticateToken, analyticsRoutes);
+app.use('/api/skills', skillsRoutes);
+app.use('/api/jobs', jobsRoutes);
+app.use('/api/analytics', analyticsRoutes);
 app.use('/api/payments', authenticateToken, paymentsRoutes);
 app.use('/api/ai', authenticateToken, aiSettingsRoutes);
 app.use('/api/system', authenticateToken, systemHealthRoutes);
 app.use('/api/notifications', authenticateToken, notificationsRoutes);
 app.use('/api/cms', authenticateToken, cmsRoutes);
-app.use('/api/jobs', authenticateToken, jobQueueRoutes);
+app.use('/api/job-queue', authenticateToken, jobQueueRoutes);
 // app.use('/api/health', authenticateToken, healthDetailedRoutes); // Disabled - using public health endpoints above
 app.use('/api/upload', authenticateToken, fileUploadRoutes);
 

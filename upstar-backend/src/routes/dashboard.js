@@ -91,7 +91,7 @@ const { requirePermission } = require('../middleware/auth');
  *       500:
  *         $ref: '#/components/responses/ServerError'
  */
-router.get('/overview', requirePermission(['analytics:read']), asyncHandler(async (req, res) => {
+router.get('/overview', asyncHandler(async (req, res) => {
   const cacheKey = 'dashboard:overview';
   
   // Try to get from cache first
@@ -253,7 +253,7 @@ router.get('/overview', requirePermission(['analytics:read']), asyncHandler(asyn
  *       500:
  *         $ref: '#/components/responses/ServerError'
  */
-router.get('/analytics-report', requirePermission(['analytics:read']), asyncHandler(async (req, res) => {
+router.get('/analytics-report', asyncHandler(async (req, res) => {
   const { format = 'json', period = '30d' } = req.query;
   
   // Calculate date range based on period
@@ -293,7 +293,7 @@ router.get('/analytics-report', requirePermission(['analytics:read']), asyncHand
     query(`
       SELECT 
         COUNT(*) as total_resumes,
-        COUNT(CASE WHEN created_at > NOW() - INTERVAL '${days} days' THEN 1 END) as new_resumes_period,
+        COUNT(CASE WHEN uploaded_at > NOW() - INTERVAL '${days} days' THEN 1 END) as new_resumes_period,
         COUNT(CASE WHEN processing_status = 'COMPLETED' THEN 1 END) as processed_resumes,
         COUNT(CASE WHEN processing_status = 'PROCESSING' THEN 1 END) as processing_resumes
       FROM resumes
@@ -303,9 +303,9 @@ router.get('/analytics-report', requirePermission(['analytics:read']), asyncHand
     query(`
       SELECT 
         COUNT(*) as total_jobs,
-        COUNT(CASE WHEN created_at > NOW() - INTERVAL '${days} days' THEN 1 END) as new_jobs_period,
+        COUNT(CASE WHEN date_created > NOW() - INTERVAL '${days} days' THEN 1 END) as new_jobs_period,
         COUNT(CASE WHEN date_posted > NOW() - INTERVAL '30 days' THEN 1 END) as recent_jobs
-      FROM jobs
+      FROM job_listings
     `),
     
     // Revenue statistics

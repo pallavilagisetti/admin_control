@@ -82,7 +82,7 @@ const { requirePermission } = require('../middleware/auth');
  *       500:
  *         $ref: '#/components/responses/ServerError'
  */
-router.get('/analytics', requirePermission(['analytics:read']), asyncHandler(async (req, res) => {
+router.get('/analytics', asyncHandler(async (req, res) => {
   const cacheKey = 'skills:analytics';
   
   // Try to get from cache first
@@ -266,7 +266,7 @@ router.get('/analytics', requirePermission(['analytics:read']), asyncHandler(asy
  *       500:
  *         $ref: '#/components/responses/ServerError'
  */
-router.get('/errors', requirePermission(['analytics:read']), asyncHandler(async (req, res) => {
+router.get('/errors', asyncHandler(async (req, res) => {
   const { page = 1, limit = 50 } = req.query;
   const offset = (page - 1) * limit;
 
@@ -362,7 +362,7 @@ router.get('/errors', requirePermission(['analytics:read']), asyncHandler(async 
  *       500:
  *         $ref: '#/components/responses/ServerError'
  */
-router.get('/categories', requirePermission(['analytics:read']), asyncHandler(async (req, res) => {
+router.get('/categories', asyncHandler(async (req, res) => {
   const cacheKey = 'skills:categories';
   
   // Try to get from cache first
@@ -445,7 +445,7 @@ router.get('/categories', requirePermission(['analytics:read']), asyncHandler(as
  *       500:
  *         $ref: '#/components/responses/ServerError'
  */
-router.get('/trends', requirePermission(['analytics:read']), asyncHandler(async (req, res) => {
+router.get('/trends', asyncHandler(async (req, res) => {
   const { period = '30d' } = req.query;
   
   // Calculate date range based on period

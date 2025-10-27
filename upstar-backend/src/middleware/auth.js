@@ -49,7 +49,29 @@ const authenticateToken = async (req, res, next) => {
       return next();
     }
 
+    // Also bypass authentication if no token is provided in development mode
     const authHeader = req.headers.authorization;
+    if (!authHeader && process.env.NODE_ENV === 'development') {
+      req.user = {
+        id: 'dev-user-123',
+        email: 'dev@example.com',
+        name: 'Development User',
+        roles: ['admin'],
+        permissions: [
+          'users:read', 'users:write', 'users:delete',
+          'resumes:read', 'resumes:write', 'resumes:delete',
+          'jobs:read', 'jobs:write', 'jobs:delete',
+          'analytics:read', 'analytics:write',
+          'payments:read', 'payments:write',
+          'ai:read', 'ai:write',
+          'system:read', 'system:write',
+          'notifications:read', 'notifications:write',
+          'cms:read', 'cms:write',
+          'files:write'
+        ]
+      };
+      return next();
+    }
     const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
 
     // Check if it's a mock token (frontend-generated)
