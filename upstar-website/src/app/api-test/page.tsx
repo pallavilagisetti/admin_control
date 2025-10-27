@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useBackend } from '../../contexts/BackendContext';
-import { BackendConnectionTest } from '../../components/BackendConnection';
+import { BackendConnection, BackendConnectionTest } from '../../components/BackendConnection';
 
 export default function ApiTestPage() {
   const { checkConnection, connectionStatus, healthStatus, systemHealth } = useBackend();
@@ -221,6 +221,7 @@ export default function ApiTestPage() {
     </div>
   );
 }
+
 
 
 

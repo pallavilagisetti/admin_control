@@ -20,3 +20,4 @@ CREATE INDEX IF NOT EXISTS idx_analytics_reports_created_at ON analytics_reports
 
 
 
+
