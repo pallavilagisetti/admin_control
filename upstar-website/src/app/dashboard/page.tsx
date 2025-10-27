@@ -4,9 +4,27 @@ import React from 'react';
 import { useDashboardOverview, useDashboardAnalyticsReport } from '../../lib/api-hooks';
 import { BackendConnection } from '../../components/BackendConnection';
 
+// Type definitions for dashboard data
+interface DashboardOverview {
+  totalUsers?: number;
+  activeUsers?: number;
+  totalRevenue?: number;
+  monthlyRevenue?: number;
+  systemHealth?: string;
+  recentActivity?: Array<{
+    message: string;
+    timestamp: string;
+  }>;
+}
+
+interface AnalyticsReport {
+  generatedAt?: string;
+  period?: string;
+}
+
 export default function DashboardPage() {
-  const { data: overview, loading: overviewLoading, error: overviewError } = useDashboardOverview();
-  const { data: analyticsReport, loading: reportLoading, error: reportError } = useDashboardAnalyticsReport();
+  const { data: overview, loading: overviewLoading, error: overviewError } = useDashboardOverview<DashboardOverview>();
+  const { data: analyticsReport, loading: reportLoading, error: reportError } = useDashboardAnalyticsReport<AnalyticsReport>();
 
   if (overviewLoading || reportLoading) {
     return (

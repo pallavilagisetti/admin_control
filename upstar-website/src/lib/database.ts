@@ -1,4 +1,4 @@
-import { Pool, PoolClient, QueryResult } from 'pg';
+import { Pool, PoolClient, QueryResult, QueryResultRow } from 'pg';
 
 // Database configuration interface
 export interface DatabaseConfig {
@@ -54,7 +54,7 @@ export class DatabaseConnection {
   }
 
   // Execute a query with automatic client management
-  public async query<T = any>(
+  public async query<T extends QueryResultRow = any>(
     text: string, 
     params?: any[]
   ): Promise<QueryResult<T>> {
@@ -120,7 +120,7 @@ export class DatabaseUtils {
   }
 
   // Execute a simple query
-  public static async query<T = any>(
+  public static async query<T extends QueryResultRow = any>(
     text: string, 
     params?: any[]
   ): Promise<QueryResult<T>> {

@@ -93,12 +93,12 @@ export function useAuth() {
 }
 
 // Dashboard hooks
-export function useDashboardOverview() {
-  return useApi(() => apiClient.getDashboardOverview());
+export function useDashboardOverview<T = any>() {
+  return useApi<T>(() => apiClient.getDashboardOverview());
 }
 
-export function useDashboardAnalyticsReport() {
-  return useApi(() => apiClient.getDashboardAnalyticsReport());
+export function useDashboardAnalyticsReport<T = any>() {
+  return useApi<T>(() => apiClient.getDashboardAnalyticsReport());
 }
 
 // Users hooks
