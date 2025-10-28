@@ -466,7 +466,7 @@ UI Updates ← JSON Response ← Data Processing ← Query Results
 
 ## 🗄️ Database Schema & Tables
 
-### Primary Database: `resume_db`
+### Primary Database: `AWS CLOUD DB (PUBLIC IP)`
 
 #### Core Tables
 
@@ -591,7 +591,7 @@ UI Updates ← JSON Response ← Data Processing ← Query Results
   NEXT_PUBLIC_AUTH0_CLIENT_ID=your-client-id
   ```
 
-### Backend Deployment (Render)
+### Backend Deployment
 - 
 - **Database**: AWS CLOUD DB(public ip)
 - **Environment Variables**:
@@ -707,8 +707,6 @@ The system is ready for production use and can be extended with additional featu
 
 ---
 
-*Last Updated: October 27, 2025*
-*Version: 1.0.0*
-*Status: Production Ready*
+
 
 
