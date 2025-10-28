@@ -5,7 +5,7 @@ const pool = new Pool({
   host: process.env.DB_HOST || '54.254.3.87',
   port: process.env.DB_PORT || 5433,
   database: process.env.DB_NAME || 'resume_db',
-  user: process.env.DB_USER || 'postgres',
+  user: process.env.DB_USER || 'developer',
   password: process.env.DB_PASSWORD || 'password',
   max: 20, // Maximum number of clients in the pool
   idleTimeoutMillis: 30000, // Close idle clients after 30 seconds

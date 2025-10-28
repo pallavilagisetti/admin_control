@@ -71,7 +71,7 @@ function testDatabaseConfiguration() {
     host: process.env.DB_HOST || '54.254.3.87',
     port: process.env.DB_PORT || '5433',
     database: process.env.DB_NAME || 'resume_db',
-    user: process.env.DB_USER || 'postgres',
+    user: process.env.DB_USER || 'developer',
     password: process.env.DB_PASSWORD || 'password'
   };
   

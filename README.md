@@ -138,7 +138,7 @@ The application uses PostgreSQL with the `resume_db` database. Configure your da
 
 ### Environment Variables
 Key environment variables:
-- `DB_HOST` - Database host (default: 54.254.3.87)
+- `DB_HOST` - Database host (default: 54.254.3.87 )
 - `DB_PORT` - Database port (default: 5433)
 - `DB_NAME` - Database name (must be: resume_db)
 - `JWT_SECRET` - JWT signing secret
@@ -197,6 +197,39 @@ npm run typecheck    # TypeScript type checking
 | **Admin** | pallavigisetti12003@gmail.com | admin123 | Full access |
 | **Editor** | lagisettipallavi607@gmail.com | editor123 | Content management |
 | **Viewer** | pallusweety67@gmail.com | viewer123 | Read-only |
+
+## 🗄️ Database IP Configuration
+
+The following files contain the database IP address `54.254.3.87` and port `5433`:
+
+### Backend Configuration Files
+- `upstar-backend/src/config/database.js` - Main database connection pool
+- `upstar-backend/env.local` - Environment variables
+- `upstar-backend/docker-compose.yml` - Docker environment variables
+- `upstar-backend/docker-compose.production.yml` - Production Docker environment
+
+### Database Scripts
+- `upstar-backend/database/init-db.js` - Database initialization script
+- `upstar-backend/check-db.js` - Database connection checker
+- `upstar-backend/setup-complete-database.js` - Complete database setup
+- `upstar-backend/setup-resume-database.js` - Resume database setup
+- `upstar-backend/create-missing-tables.js` - Missing tables creator
+- `upstar-backend/fix-analytics.js` - Analytics fix script
+- `upstar-backend/fix-users-table.js` - Users table fix script
+- `upstar-backend/check-table-structures.js` - Table structure checker
+- `upstar-backend/create-user-activity-logs.js` - Activity logs creator
+
+### Testing Files
+- `upstar-backend/test-environment.js` - Environment testing
+- `upstar-backend/test-remote-db.js` - Remote database testing
+- `upstar-backend/verify-env.js` - Environment verification
+- `upstar-website/test-database-config.js` - Frontend database config test
+
+### Documentation Files
+- `README.md` - Main documentation (this file)
+- `upstar-backend/README.md` - Backend documentation
+
+**Note:** All these files use `54.254.3.87:5433` as the default database connection. To change the database server, update the IP address in these files or set the `DB_HOST` environment variable.
 
 ## 🤝 Contributing
 

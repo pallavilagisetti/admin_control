@@ -17,7 +17,7 @@ async function testDatabaseConnection() {
     host: '54.254.3.87',
     port: 5433,
     database: 'resume_db',
-    user: 'postgres',
+    user: 'developer',
     password: 'password',
     ssl: false,
     max: 1,
@@ -85,7 +85,7 @@ function testEnvironmentConfig() {
   console.log(`   DB_HOST: ${process.env.DB_HOST || 'localhost'}`);
   console.log(`   DB_PORT: ${process.env.DB_PORT || '5432'}`);
   console.log(`   DB_NAME: ${process.env.DB_NAME || 'resume_db'}`);
-  console.log(`   DB_USER: ${process.env.DB_USER || 'postgres'}`);
+  console.log(`   DB_USER: ${process.env.DB_USER || 'developer'}`);
   console.log(`   DB_PASSWORD: ${process.env.DB_PASSWORD ? '***' : 'password'}`);
   
   // Check if DB_NAME is set to resume_db
