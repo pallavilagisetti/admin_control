@@ -5,7 +5,7 @@ A comprehensive admin platform for SkillGraph AI, featuring a modern React front
 ## 🏗️ Project Structure
 
 ```
-upstarflows/
+
 ├── upstar-backend/          # Node.js API Backend
 │   ├── src/                 # Source code
 │   ├── database/            # Database schemas and migrations
@@ -19,7 +19,6 @@ upstarflows/
 │   ├── .env                 # Environment variables
 │   ├── .gitignore           # Git ignore rules
 │   └── README.md            # Frontend documentation
-└── README.md               # This file
 ```
 
 ## 🚀 Quick Start
@@ -35,7 +34,7 @@ upstarflows/
 
 ```bash
 git clone <repository-url>
-cd upstarflows
+
 ```
 
 ### 2. Backend Setup
@@ -119,7 +118,7 @@ Frontend will run on `http://localhost:3000`
 ```env
 PORT=5000
 NODE_ENV=development
-DATABASE_URL=postgresql://username:password@localhost:5432/skillgraph_db
+DATABASE_URL=postgresql://username:password@localhost:5433/skillgraph_db
 REDIS_URL=redis://localhost:6379
 JWT_SECRET=your-super-secret-jwt-key
 CORS_ORIGIN=http://localhost:3000
@@ -239,14 +238,6 @@ cd upstar-website
 docker build -t skillgraph-frontend .
 docker run -p 3000:3000 skillgraph-frontend
 ```
-
-## 📈 Performance Monitoring
-
-### Key Metrics
-- **API Response Time**: < 200ms average
-- **Database Query Performance**: Optimized queries
-- **Memory Usage**: Efficient resource utilization
-- **Error Rates**: < 1% error rate target
 
 ### Monitoring Tools
 - Built-in API logging
