@@ -38,7 +38,7 @@ upstarflows-admin/
 **Linux/Mac:**
 ```bash
 git clone <your-repo-url>
-cd upstarflows-admin (or else use youwn own )
+cd upstarflows-admin (or else use your own )
 chmod +x setup.sh
 ./setup.sh
 ```
@@ -46,7 +46,7 @@ chmod +x setup.sh
 **Windows:**
 ```cmd
 git clone <your-repo-url>
-cd upstarflows-admin  (or else use youwn own )
+cd upstarflows-admin  (or else use your own )
 setup.bat
 ```
 
@@ -55,7 +55,7 @@ setup.bat
 1. **Clone and install dependencies:**
    ```bash
    git clone <your-repo-url>
-   cd upstarflows-admin  (or else use youwn own )
+   cd upstarflows-admin  (or else use your own )
    
    # Backend
    cd upstar-backend
