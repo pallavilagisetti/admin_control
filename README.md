@@ -38,7 +38,7 @@ upstarflows-admin/
 **Linux/Mac:**
 ```bash
 git clone <your-repo-url>
-cd upstarflows-admin
+cd upstarflows-admin (or else use your own )
 chmod +x setup.sh
 ./setup.sh
 ```
@@ -46,7 +46,7 @@ chmod +x setup.sh
 **Windows:**
 ```cmd
 git clone <your-repo-url>
-cd upstarflows-admin
+cd upstarflows-admin  (or else use your own )
 setup.bat
 ```
 
@@ -55,7 +55,7 @@ setup.bat
 1. **Clone and install dependencies:**
    ```bash
    git clone <your-repo-url>
-   cd upstarflows-admin
+   cd upstarflows-admin  (or else use your own )
    
    # Backend
    cd upstar-backend
@@ -123,8 +123,6 @@ docker-compose down
 
 ## 📚 Documentation
 
-- [Complete Setup Guide](SETUP_GUIDE.md) - Detailed setup instructions
-- [Deployment Guide](DEPLOYMENT_GUIDE.md) - Production deployment
 - [Backend API Documentation](upstar-backend/docs/API.md)
 - [Database Documentation](upstar-backend/DATABASE_DOCUMENTATION.md)
 - [Environment Setup](upstar-backend/ENVIRONMENT_SETUP.md)
@@ -132,7 +130,7 @@ docker-compose down
 ## 🔧 Configuration
 
 ### Database Configuration
-The application uses PostgreSQL with the `resume_db` database. Configure your database settings in:
+The application uses PostgreSQL with the `54.254.3.87` database. Configure your database settings in:
 - `upstar-backend/env.local` - Backend database connection
 - `upstar-website/.env.local` - Frontend API configuration
 
@@ -246,10 +244,9 @@ This project is licensed under the MIT License.
 ## 🆘 Support
 
 For issues and questions:
-1. Check the [Setup Guide](SETUP_GUIDE.md)
-2. Review the [Troubleshooting Guide](upstar-website/TROUBLESHOOTING.md)
-3. Check logs for error messages
-4. Verify environment configuration
+
+1. Check logs for error messages
+2. Verify environment configuration
 
 ## 🔄 Updates
 
