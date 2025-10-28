@@ -49,18 +49,18 @@ The Upstar Admin Panel is a comprehensive web-based administration system design
 - **State Management**: React Hooks (useState, useEffect, useContext)
 - **API Integration**: Custom API client with React hooks
 - **Authentication**: JWT-based authentication with Auth0 integration
-- **Deployment**: Vercel
+
 
 ### Backend (upstar-backend)
 - **Runtime**: Node.js with Express.js
 - **Language**: JavaScript
-- **Database**: PostgreSQL (resume_db)
+- **Database**: AWS Cloud DB (EC2 -public ip)
 - **Authentication**: JWT middleware with role-based access control
 - **API**: RESTful API with comprehensive error handling
-- **Deployment**: Render.com
+
 
 ### Database
-- **Primary Database**: PostgreSQL (resume_db)
+- **Primary Database**: AWS Cloud DB (EC2 -public ip)
 - **Tables**: 15+ tables including users, resumes, job_listings, payments, etc.
 - **Connection**: Pool-based connections with SSL support
 - **Environment**: Development (local) and Production (Render)
@@ -466,7 +466,7 @@ UI Updates ← JSON Response ← Data Processing ← Query Results
 
 ## 🗄️ Database Schema & Tables
 
-### Primary Database: `resume_db`
+### Primary Database: `AWS CLOUD DB (PUBLIC IP)`
 
 #### Core Tables
 
@@ -582,9 +582,8 @@ UI Updates ← JSON Response ← Data Processing ← Query Results
 
 ## 🚀 Deployment & Environment
 
-### Frontend Deployment (Vercel)
-- **Platform**: Vercel
-- **Framework**: Next.js
+### Frontend Deployment
+
 - **Environment Variables**:
   ```
   NEXT_PUBLIC_API_URL=https://your-backend-url.com
@@ -592,14 +591,13 @@ UI Updates ← JSON Response ← Data Processing ← Query Results
   NEXT_PUBLIC_AUTH0_CLIENT_ID=your-client-id
   ```
 
-### Backend Deployment (Render)
-- **Platform**: Render.com
-- **Runtime**: Node.js
-- **Database**: PostgreSQL (Render managed)
+### Backend Deployment
+- 
+- **Database**: AWS CLOUD DB(public ip)
 - **Environment Variables**:
   ```
   NODE_ENV=production
-  DATABASE_URL=postgresql://user:pass@host:port/db
+  DATABASE_URL=postgresql://user:pass@host:port/db (if it is used)
   DB_HOST=your-db-host
   DB_PORT=5432
   DB_NAME=resume_db
@@ -709,9 +707,7 @@ The system is ready for production use and can be extended with additional featu
 
 ---
 
-*Last Updated: October 27, 2025*
-*Version: 1.0.0*
-*Status: Production Ready*
+
 
 
 

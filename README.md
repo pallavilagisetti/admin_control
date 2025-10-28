@@ -10,11 +10,17 @@ upstarflows-admin/
 │   ├── src/                # Source code
 │   ├── database/           # Database migrations and seeds
 │   ├── tests/              # Test files
-│   └── env.local           # Environment configuration
+│   ├── uploads/            # File uploads directory
+│   ├── env.local           # Environment configuration
+│   ├── .gitignore          # Git ignore rules
+│   └── README.md           # Backend documentation
 ├── upstar-website/         # Next.js frontend
 │   ├── src/                # Source code
 │   ├── app/                # Next.js app directory
-│   └── .env.local          # Environment configuration
+│   ├── public/             # Static assets
+│   ├── .env.local          # Environment configuration
+│   ├── .gitignore          # Git ignore rules
+│   └── README.md           # Frontend documentation
 ├── setup.sh               # Automated setup script (Linux/Mac)
 ├── setup.bat              # Automated setup script (Windows)
 └── SETUP_GUIDE.md         # Detailed setup instructions
@@ -183,6 +189,14 @@ npm run typecheck    # TypeScript type checking
 - Error tracking
 - Database monitoring
 - Application metrics
+
+## 👥 Test Accounts
+
+| Role | Email | Password | Access Level |
+|------|-------|----------|--------------|
+| **Admin** | pallavigisetti12003@gmail.com | admin123 | Full access |
+| **Editor** | lagisettipallavi607@gmail.com | editor123 | Content management |
+| **Viewer** | pallusweety67@gmail.com | viewer123 | Read-only |
 
 ## 🤝 Contributing
 
