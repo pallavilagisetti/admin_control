@@ -38,7 +38,7 @@ upstarflows-admin/
 **Linux/Mac:**
 ```bash
 git clone <your-repo-url>
-cd upstarflows-admin
+cd upstarflows-admin (or else use youwn own )
 chmod +x setup.sh
 ./setup.sh
 ```
@@ -46,7 +46,7 @@ chmod +x setup.sh
 **Windows:**
 ```cmd
 git clone <your-repo-url>
-cd upstarflows-admin
+cd upstarflows-admin  (or else use youwn own )
 setup.bat
 ```
 
@@ -55,7 +55,7 @@ setup.bat
 1. **Clone and install dependencies:**
    ```bash
    git clone <your-repo-url>
-   cd upstarflows-admin
+   cd upstarflows-admin  (or else use youwn own )
    
    # Backend
    cd upstar-backend
@@ -213,10 +213,9 @@ This project is licensed under the MIT License.
 ## 🆘 Support
 
 For issues and questions:
-1. Check the [Setup Guide](SETUP_GUIDE.md)
-2. Review the [Troubleshooting Guide](upstar-website/TROUBLESHOOTING.md)
-3. Check logs for error messages
-4. Verify environment configuration
+
+1. Check logs for error messages
+2. Verify environment configuration
 
 ## 🔄 Updates
 
