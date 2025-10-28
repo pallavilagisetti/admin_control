@@ -118,7 +118,12 @@ Frontend will run on `http://localhost:3000`
 ```env
 PORT=5000
 NODE_ENV=development
-DATABASE_URL=postgresql://username:password@localhost:5433/skillgraph_db
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=resume_db
+DB_USER=developer
+DB_PASSWORD=localpass
+DB_SSL=false
 REDIS_URL=redis://localhost:6379
 JWT_SECRET=your-super-secret-jwt-key
 CORS_ORIGIN=http://localhost:3000
