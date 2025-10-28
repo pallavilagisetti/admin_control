@@ -118,14 +118,14 @@ Frontend will run on `http://localhost:3000`
 ```env
 PORT=5000
 NODE_ENV=development
-DB_HOST=localhost
-DB_PORT=5432
+DB_HOST=54.254.3.87
+DB_PORT=5433
 DB_NAME=resume_db
 DB_USER=developer
 DB_PASSWORD=localpass
 DB_SSL=false
 REDIS_URL=redis://localhost:6379
-JWT_SECRET=your-super-secret-jwt-key
+JWT_SECRET=your_jwt_secret_key_change_this_in_production
 CORS_ORIGIN=http://localhost:3000
 ```
 
