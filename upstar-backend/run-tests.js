@@ -90,7 +90,7 @@ async function runAllTests() {
     console.log('\n⚠️ Some tests failed. Please check the errors above and fix them before proceeding.');
     console.log('\n🔧 Troubleshooting:');
     console.log('1. Make sure PostgreSQL is running and accessible');
-    console.log('2. Check your database connection in .env file');
+    console.log('2. Check your database connection in env.local file');
     console.log('3. Ensure Redis is running for job queues');
     console.log('4. Verify all environment variables are set correctly');
     console.log('5. Check that all dependencies are installed: npm install');

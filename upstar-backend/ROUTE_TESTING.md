@@ -265,7 +265,7 @@ The tests generate JWT tokens with the following structure:
 ### Environment Issues
 
 1. **Missing Environment Variables**
-   - Check `.env` file for all required variables
+   - Check `env.local` file for all required variables
    - Verify Auth0 configuration
    - Check database connection strings
 

@@ -10,11 +10,11 @@ Before running tests, ensure you have:
 2. **Redis 7+** running for job queues
 3. **Node.js 18+** installed
 4. **All dependencies** installed (`npm install`)
-5. **Environment variables** configured in `.env` file
+5. **Environment variables** configured in `env.local` file
 
 ## Environment Setup
 
-Create a `.env` file with the following variables:
+Create an `env.local` file with the following variables:
 
 ```env
 # Server Configuration
@@ -24,7 +24,7 @@ PORT=3000
 # Database Configuration
 DB_HOST=localhost
 DB_PORT=5433
-DB_NAME=upstar_db
+DB_NAME=resume_db
 DB_USER=postgres
 DB_PASSWORD=localpass
 
@@ -268,7 +268,7 @@ Tests system performance:
 ### Environment Issues
 
 1. **Missing Environment Variables**
-   - Check `.env` file exists and has all required variables
+   - Check `env.local` file exists and has all required variables
    - Verify variable names match the expected format
 
 2. **Database Permissions**
@@ -304,7 +304,7 @@ curl -H "Authorization: Bearer <token>" http://localhost:3000/api/system/health
 
 ```bash
 # Connect to PostgreSQL
-psql -h localhost -p 5433 -U postgres -d upstar_db
+psql -h localhost -p 5433 -U postgres -d resume_db
 
 # Check tables
 \dt

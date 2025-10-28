@@ -53,13 +53,13 @@ sleep 10
 
 # Wait for PostgreSQL to be ready
 log "Waiting for PostgreSQL to be ready..."
-until docker exec upstar-postgres-prod pg_isready -U upstar_user -d upstar_production; do
+until docker exec upstar-postgres-prod pg_isready -U upstar_user -d resume_db; do
     log "Waiting for PostgreSQL..."
     sleep 2
 done
 
 # Restore database
-docker exec -i upstar-postgres-prod psql -U upstar_user -d upstar_production < $LATEST_BACKUP
+docker exec -i upstar-postgres-prod psql -U upstar_user -d resume_db < $LATEST_BACKUP
 
 # Start all services
 log "Starting all services..."
@@ -77,6 +77,8 @@ if curl -f http://localhost:5000/api/health > /dev/null 2>&1; then
 else
     error "❌ Rollback failed - health check failed"
 fi
+
+
 
 
 

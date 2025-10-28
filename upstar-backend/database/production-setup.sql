@@ -2,7 +2,7 @@
 -- This script sets up the production database with optimized settings
 
 -- Create production database
-CREATE DATABASE upstar_production
+CREATE DATABASE resume_db
     WITH 
     OWNER = upstar_user
     ENCODING = 'UTF8'
@@ -12,7 +12,7 @@ CREATE DATABASE upstar_production
     CONNECTION LIMIT = -1;
 
 -- Connect to production database
-\c upstar_production;
+\c resume_db;
 
 -- Enable required extensions
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
@@ -54,9 +54,9 @@ CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_jobs_text_search
 ON jobs USING gin(to_tsvector('english', title || ' ' || description));
 
 -- Set up connection limits and timeouts
-ALTER DATABASE upstar_production SET statement_timeout = '30s';
-ALTER DATABASE upstar_production SET idle_in_transaction_session_timeout = '5min';
-ALTER DATABASE upstar_production SET lock_timeout = '10s';
+ALTER DATABASE resume_db SET statement_timeout = '30s';
+ALTER DATABASE resume_db SET idle_in_transaction_session_timeout = '5min';
+ALTER DATABASE resume_db SET lock_timeout = '10s';
 
 -- Create monitoring views
 CREATE OR REPLACE VIEW api_performance_summary AS
@@ -86,7 +86,7 @@ ORDER BY date DESC;
 CREATE OR REPLACE VIEW system_health_metrics AS
 SELECT 
     'database_size' as metric,
-    pg_size_pretty(pg_database_size('upstar_production')) as value
+    pg_size_pretty(pg_database_size('resume_db')) as value
 UNION ALL
 SELECT 
     'total_users' as metric,
@@ -151,7 +151,7 @@ GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO upstar_user;
 
 -- Create maintenance user for automated tasks
 CREATE USER maintenance_user WITH PASSWORD 'maintenance_password';
-GRANT CONNECT ON DATABASE upstar_production TO maintenance_user;
+GRANT CONNECT ON DATABASE resume_db TO maintenance_user;
 GRANT USAGE ON SCHEMA public TO maintenance_user;
 GRANT SELECT ON ALL TABLES IN SCHEMA public TO maintenance_user;
 GRANT EXECUTE ON FUNCTION cleanup_old_logs() TO maintenance_user;
@@ -174,7 +174,7 @@ BEGIN
     RETURN QUERY
     SELECT 
         NOW() as backup_timestamp,
-        pg_size_pretty(pg_database_size('upstar_production')) as database_size,
+        pg_size_pretty(pg_database_size('resume_db')) as database_size,
         (SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'public')::integer as table_count,
         (SELECT SUM(n_tup_ins - n_tup_del) FROM pg_stat_user_tables) as total_rows;
 END;
@@ -183,6 +183,8 @@ $$ LANGUAGE plpgsql;
 -- Final optimizations
 ANALYZE;
 VACUUM;
+
+
 
 
 

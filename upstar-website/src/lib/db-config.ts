@@ -30,7 +30,7 @@ export function getDevelopmentConfig(): DatabaseConfig {
   return {
     host: 'localhost',
     port: 5432,
-    database: 'upstar_dev',
+    database: 'resume_db',
     user: 'postgres',
     password: 'password',
     ssl: false,
@@ -50,7 +50,7 @@ export function getTestConfig(): DatabaseConfig {
   return {
     host: process.env.DB_HOST || 'localhost',
     port: parseInt(process.env.DB_PORT || '5432'),
-    database: process.env.DB_NAME || 'upstar_test',
+    database: process.env.DB_NAME || 'resume_db',
     user: process.env.DB_USER || 'postgres',
     password: process.env.DB_PASSWORD || 'password',
     ssl: false,

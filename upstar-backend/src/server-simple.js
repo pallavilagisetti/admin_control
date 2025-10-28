@@ -4,7 +4,7 @@ const helmet = require('helmet');
 const compression = require('compression');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
-require('dotenv').config();
+require('dotenv').config({ path: './env.local' });
 
 const app = express();
 const PORT = process.env.PORT || 5000;

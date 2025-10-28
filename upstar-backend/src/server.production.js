@@ -4,7 +4,7 @@ const helmet = require('helmet');
 const compression = require('compression');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
-require('dotenv').config();
+require('dotenv').config({ path: './env.local' });
 
 // Import middleware
 const { errorHandler } = require('./middleware/errorHandler');
@@ -227,6 +227,8 @@ const startServer = async () => {
 };
 
 startServer();
+
+
 
 
 

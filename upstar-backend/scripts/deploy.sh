@@ -51,7 +51,7 @@ mkdir -p $BACKUP_DIR
 # Backup current database (if exists)
 if docker ps | grep -q "upstar-postgres"; then
     log "Creating database backup..."
-    docker exec upstar-postgres pg_dump -U upstar_user upstar_production > $BACKUP_DIR/backup_$(date +%Y%m%d_%H%M%S).sql
+    docker exec upstar-postgres pg_dump -U upstar_user resume_db > $BACKUP_DIR/backup_$(date +%Y%m%d_%H%M%S).sql
     log "Database backup created successfully"
 fi
 
@@ -95,6 +95,8 @@ log "🎉 Deployment completed successfully!"
 log "📊 Application is running at: http://localhost:5000"
 log "🔍 Health check: http://localhost:5000/api/health"
 log "📝 Logs: docker-compose -f docker-compose.production.yml logs -f"
+
+
 
 
 

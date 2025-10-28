@@ -6,7 +6,7 @@ services:
     image: postgres:16-alpine
     container_name: upstar-postgres-prod
     environment:
-      POSTGRES_DB: upstar_production
+      POSTGRES_DB: resume_db
       POSTGRES_USER: upstar_user
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
@@ -16,7 +16,7 @@ services:
       - "5432:5432"
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U upstar_user -d upstar_production"]
+      test: ["CMD-SHELL", "pg_isready -U upstar_user -d resume_db"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -47,7 +47,7 @@ services:
       - NODE_ENV=production
       - DB_HOST=postgres
       - DB_PORT=5432
-      - DB_NAME=upstar_production
+      - DB_NAME=resume_db
       - DB_USER=upstar_user
       - DB_PASSWORD=${DB_PASSWORD}
       - REDIS_HOST=redis
@@ -87,6 +87,8 @@ services:
 volumes:
   postgres_data:
   redis_data:
+
+
 
 
 

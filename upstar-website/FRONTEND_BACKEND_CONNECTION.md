@@ -54,7 +54,7 @@ PORT=3001
 # Database Configuration
 DB_HOST=localhost
 DB_PORT=5433
-DB_NAME=upstar_db
+DB_NAME=resume_db
 DB_USER=postgres
 DB_PASSWORD=localpass
 

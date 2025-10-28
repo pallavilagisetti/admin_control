@@ -95,7 +95,7 @@ check_database() {
     log "Checking database status..."
     
     # Check PostgreSQL status
-    if docker exec upstar-postgres-prod pg_isready -U upstar_user -d upstar_production > /dev/null 2>&1; then
+    if docker exec upstar-postgres-prod pg_isready -U upstar_user -d resume_db > /dev/null 2>&1; then
         info "✅ PostgreSQL is ready"
     else
         error "❌ PostgreSQL is not ready"
@@ -103,7 +103,7 @@ check_database() {
     fi
     
     # Check database size
-    DB_SIZE=$(docker exec upstar-postgres-prod psql -U upstar_user -d upstar_production -t -c "SELECT pg_size_pretty(pg_database_size('upstar_production'));" | xargs)
+    DB_SIZE=$(docker exec upstar-postgres-prod psql -U upstar_user -d resume_db -t -c "SELECT pg_size_pretty(pg_database_size('resume_db'));" | xargs)
     info "Database size: $DB_SIZE"
 }
 
@@ -142,7 +142,7 @@ generate_report() {
     echo "" | tee -a $LOG_FILE
     
     echo "=== Database Status ===" | tee -a $LOG_FILE
-    docker exec upstar-postgres-prod psql -U upstar_user -d upstar_production -c "SELECT version();" | tee -a $LOG_FILE
+    docker exec upstar-postgres-prod psql -U upstar_user -d resume_db -c "SELECT version();" | tee -a $LOG_FILE
     echo "" | tee -a $LOG_FILE
     
     echo "=== Recent Errors ===" | tee -a $LOG_FILE
@@ -167,6 +167,8 @@ main() {
 
 # Run monitoring
 main "$@"
+
+
 
 
 
