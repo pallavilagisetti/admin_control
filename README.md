@@ -123,8 +123,6 @@ docker-compose down
 
 ## 📚 Documentation
 
-- [Complete Setup Guide](SETUP_GUIDE.md) - Detailed setup instructions
-- [Deployment Guide](DEPLOYMENT_GUIDE.md) - Production deployment
 - [Backend API Documentation](upstar-backend/docs/API.md)
 - [Database Documentation](upstar-backend/DATABASE_DOCUMENTATION.md)
 - [Environment Setup](upstar-backend/ENVIRONMENT_SETUP.md)
@@ -132,7 +130,7 @@ docker-compose down
 ## 🔧 Configuration
 
 ### Database Configuration
-The application uses PostgreSQL with the `resume_db` database. Configure your database settings in:
+The application uses PostgreSQL with the `54.254.3.87` database. Configure your database settings in:
 - `upstar-backend/env.local` - Backend database connection
 - `upstar-website/.env.local` - Frontend API configuration
 
