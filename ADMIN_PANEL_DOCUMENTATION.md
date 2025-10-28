@@ -49,18 +49,18 @@ The Upstar Admin Panel is a comprehensive web-based administration system design
 - **State Management**: React Hooks (useState, useEffect, useContext)
 - **API Integration**: Custom API client with React hooks
 - **Authentication**: JWT-based authentication with Auth0 integration
-- **Deployment**: Vercel
+
 
 ### Backend (upstar-backend)
 - **Runtime**: Node.js with Express.js
 - **Language**: JavaScript
-- **Database**: PostgreSQL (resume_db)
+- **Database**: AWS Cloud DB (EC2 -public ip)
 - **Authentication**: JWT middleware with role-based access control
 - **API**: RESTful API with comprehensive error handling
-- **Deployment**: Render.com
+
 
 ### Database
-- **Primary Database**: PostgreSQL (resume_db)
+- **Primary Database**: AWS Cloud DB (EC2 -public ip)
 - **Tables**: 15+ tables including users, resumes, job_listings, payments, etc.
 - **Connection**: Pool-based connections with SSL support
 - **Environment**: Development (local) and Production (Render)
@@ -582,9 +582,8 @@ UI Updates ← JSON Response ← Data Processing ← Query Results
 
 ## 🚀 Deployment & Environment
 
-### Frontend Deployment (Vercel)
-- **Platform**: Vercel
-- **Framework**: Next.js
+### Frontend Deployment
+
 - **Environment Variables**:
   ```
   NEXT_PUBLIC_API_URL=https://your-backend-url.com
@@ -593,13 +592,12 @@ UI Updates ← JSON Response ← Data Processing ← Query Results
   ```
 
 ### Backend Deployment (Render)
-- **Platform**: Render.com
-- **Runtime**: Node.js
-- **Database**: PostgreSQL (Render managed)
+- 
+- **Database**: AWS CLOUD DB(public ip)
 - **Environment Variables**:
   ```
   NODE_ENV=production
-  DATABASE_URL=postgresql://user:pass@host:port/db
+  DATABASE_URL=postgresql://user:pass@host:port/db (if it is used)
   DB_HOST=your-db-host
   DB_PORT=5432
   DB_NAME=resume_db
