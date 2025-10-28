@@ -582,7 +582,7 @@ UI Updates ← JSON Response ← Data Processing ← Query Results
 
 ## 🚀 Deployment & Environment
 
-### Frontend Deployment
+### Frontend Deployment (AWS)
 
 - **Environment Variables**:
   ```
