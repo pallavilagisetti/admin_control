@@ -45,7 +45,12 @@ npm install
 Create a PostgreSQL database and update the connection string in `.env`:
 
 ```env
-DATABASE_URL=postgresql://username:password@localhost:5432/skillgraph_db
+DB_HOST=54.254.3.87
+DB_PORT=5433
+DB_NAME=resume_db
+DB_USER=developer
+DB_PASSWORD=localpass
+
 ```
 
 ### 3. Redis Setup
@@ -66,7 +71,12 @@ PORT=5000
 NODE_ENV=development
 
 # Database
-DATABASE_URL=postgresql://username:password@localhost:5432/skillgraph_db
+DB_HOST=54.254.3.87
+DB_PORT=5433
+DB_NAME=resume_db
+DB_USER=developer
+DB_PASSWORD=localpass
+
 
 # Redis
 REDIS_URL=redis://localhost:6379
@@ -292,7 +302,7 @@ DATABASE_URL=postgresql://prod_user:password@prod_host:5432/skillgraph_prod
 REDIS_URL=redis://prod_redis:6379
 
 # Set secure JWT secret
-JWT_SECRET=your-production-secret-key
+JWT_SECRET=your_jwt_secret_key_change_this_in_production
 ```
 
 ### Docker Support
@@ -310,7 +320,7 @@ docker-compose up -d
 |----------|-------------|---------|
 | `PORT` | Server port | 5000 |
 | `NODE_ENV` | Environment | development |
-| `DATABASE_URL` | PostgreSQL connection | - |
+| `DATABASE` | PostgreSQL connection | - |
 | `REDIS_URL` | Redis connection | redis://localhost:6379 |
 | `JWT_SECRET` | JWT signing secret | - |
 | `CORS_ORIGIN` | CORS allowed origin | http://localhost:3000 |
