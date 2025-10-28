@@ -79,3 +79,4 @@ If you were using `env.production` or `env.example`:
 4. ✅ **Documentation updated** - All docs reference the new file
 
 Your old environment variables are preserved in the new `env.local` file.
+

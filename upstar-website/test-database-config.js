@@ -14,8 +14,8 @@ async function testDatabaseConnection() {
   console.log('🔄 Testing connection to resume_db...');
   
   const pool = new Pool({
-    host: 'localhost',
-    port: 5432,
+    host: '54.254.3.87',
+    port: 5433,
     database: 'resume_db',
     user: 'postgres',
     password: 'password',
@@ -129,3 +129,4 @@ async function runTests() {
 
 // Run the tests
 runTests().catch(console.error);
+

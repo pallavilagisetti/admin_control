@@ -13,7 +13,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./database/init-db.js:/docker-entrypoint-initdb.d/init-db.js
     ports:
-      - "5432:5432"
+      - "5433:5432"
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U upstar_user -d resume_db"]
@@ -45,8 +45,8 @@ services:
     container_name: upstar-backend-prod
     environment:
       - NODE_ENV=production
-      - DB_HOST=postgres
-      - DB_PORT=5432
+      - DB_HOST=54.254.3.87
+      - DB_PORT=5433
       - DB_NAME=resume_db
       - DB_USER=upstar_user
       - DB_PASSWORD=${DB_PASSWORD}

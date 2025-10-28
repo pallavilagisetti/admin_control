@@ -129,7 +129,7 @@ const errorHandler = (err, req, res, next) => {
   }
 
   // Database connection errors
-  if (err.code === 'ECONNREFUSED' && err.syscall === 'connect' && err.port === 5432) {
+  if (err.code === 'ECONNREFUSED' && err.syscall === 'connect' && err.port === 5433) {
     const message = 'Database service unavailable';
     error = { message, code: 'DATABASE_UNAVAILABLE', statusCode: 503 };
   }

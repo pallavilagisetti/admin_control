@@ -43,8 +43,8 @@ services:
     environment:
       NODE_ENV: production
       PORT: 3000
-      DB_HOST: postgres
-      DB_PORT: 5432
+      DB_HOST: 54.254.3.87
+      DB_PORT: 5433
       DB_NAME: resume_db
       DB_USER: postgres
       DB_PASSWORD: localpass
