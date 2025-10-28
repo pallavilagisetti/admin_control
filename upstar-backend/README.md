@@ -82,7 +82,7 @@ DB_PASSWORD=localpass
 REDIS_URL=redis://localhost:6379
 
 # JWT Configuration
-JWT_SECRET=your-super-secret-jwt-key
+JWT_SECRET=your_jwt_secret_key_change_this_in_production
 JWT_EXPIRES_IN=24h
 
 # File Upload
