@@ -110,13 +110,13 @@ docker-compose down
 ## 🔧 Configuration
 
 ### Database Configuration
-The application uses PostgreSQL with the `54.254.3.87` database. Configure your database settings in:
+The application uses PostgreSQL with the `resume_db`  database. Configure your database settings in:
 - `upstar-backend/env.local` - Backend database connection
 - `upstar-website/.env.local` - Frontend API configuration
 
 ### Environment Variables
 Key environment variables:
-- `DB_HOST` - Database host (default: 54.254.3.87 )
+- `DB_HOST` - Database host (default: 54.254.3.87 aws cloud ec2 public ip )
 - `DB_PORT` - Database port (default: 5433)
 - `DB_NAME` - Database name (must be: resume_db)
 - `JWT_SECRET` - JWT signing secret
@@ -178,7 +178,7 @@ npm run typecheck    # TypeScript type checking
 
 ## 🗄️ Database IP Configuration
 
-The following files contain the database IP address `54.254.3.87` and port `5433`:
+The following files contain the database IP address `54.254.3.87`(aws cloud db ec2 public ip) and port `5433`:
 
 ### Backend Configuration Files
 - `upstar-backend/src/config/database.js` - Main database connection pool
