@@ -35,7 +35,7 @@ upstarflows-admin/
 1. **Clone and install dependencies:**
    ```bash
    git clone <your-repo-url>
-   cd upstarflows-admin
+  
    
    # Backend
    cd upstar-backend
@@ -207,7 +207,7 @@ The following files contain the database IP address `54.254.3.87`(aws cloud db e
 - `README.md` - Main documentation (this file)
 - `upstar-backend/README.md` - Backend documentation
 
-**Note:** All these files use `54.254.3.87:5433` as the default database connection. To change the database server, update the IP address in these files or set the `DB_HOST` environment variable.
+**Note:** All these files use `54.254.3.87:5433` as the default (ec2 public ip) database connection. To change the database server, update the IP address in these files or set the `DB_HOST` environment variable.
 
 ## 🤝 Contributing
 
