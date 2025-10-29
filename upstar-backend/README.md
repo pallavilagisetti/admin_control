@@ -62,7 +62,7 @@ PORT=5000
 NODE_ENV=development
 
 # Database
-DB_HOST=54.254.3.87
+DB_HOST=54.254.3.87 (ec2 public ip)
 DB_PORT=5433
 DB_NAME=resume_db
 DB_USER=developer
