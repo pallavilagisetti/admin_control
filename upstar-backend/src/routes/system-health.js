@@ -56,7 +56,7 @@ router.get('/health', requirePermission(['system:read']), asyncHandler(async (re
   let data = await cache.get(cacheKey);
   
   if (!data) {
-    // Get database and Redis health
+    // Get database health
     const dbHealth = await healthCheck();
     
     // Get system metrics (with fallback)
@@ -108,7 +108,6 @@ router.get('/health', requirePermission(['system:read']), asyncHandler(async (re
     // Calculate overall health
     const healthScores = [
       dbHealth.database ? 100 : 0,
-      dbHealth.redis ? 100 : 0,
       responseTimeScore,
       98 // AI processing (simulated)
     ];
@@ -125,12 +124,6 @@ router.get('/health', requirePermission(['system:read']), asyncHandler(async (re
           label: 'Database',
           value: dbHealth.database ? 100 : 0,
           status: dbHealth.database ? 'excellent' : 'critical',
-          trend: 'stable'
-        },
-        {
-          label: 'Redis Cache',
-          value: dbHealth.redis ? 100 : 0,
-          status: dbHealth.redis ? 'excellent' : 'critical',
           trend: 'stable'
         },
         {

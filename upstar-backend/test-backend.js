@@ -53,26 +53,7 @@ async function testDatabaseTables() {
   }
 }
 
-async function testRedisConnection() {
-  console.log('\n🔍 Testing Redis Connection...');
-  try {
-    // Test cache operations
-    await cache.set('test_key', 'test_value', 60);
-    const value = await cache.get('test_key');
-    
-    if (value === 'test_value') {
-      console.log('✅ Redis connection successful');
-      await cache.del('test_key');
-      return true;
-    } else {
-      console.log('❌ Redis cache test failed');
-      return false;
-    }
-  } catch (error) {
-    console.error('❌ Redis connection failed:', error.message);
-    return false;
-  }
-}
+// Test functions
 
 async function testJobQueues() {
   console.log('\n🔍 Testing Job Queues...');
@@ -293,7 +274,6 @@ async function runAllTests() {
   const tests = [
     { name: 'Database Connection', fn: testDatabaseConnection },
     { name: 'Database Tables', fn: testDatabaseTables },
-    { name: 'Redis Connection', fn: testRedisConnection },
     { name: 'Job Queues', fn: testJobQueues },
     { name: 'AI Service', fn: testAIService },
     { name: 'S3 Service', fn: testS3Service },
@@ -356,7 +336,6 @@ module.exports = {
   runAllTests,
   testDatabaseConnection,
   testDatabaseTables,
-  testRedisConnection,
   testJobQueues,
   testAIService,
   testS3Service,

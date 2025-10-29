@@ -42,8 +42,7 @@ async function setupDatabase() {
     console.error('\nTroubleshooting:');
     console.log('1. Make sure PostgreSQL is running');
     console.log('2. Check your database connection in env.local file');
-    console.log('3. Ensure Redis is running for job queues');
-    console.log('4. Verify all environment variables are set correctly');
+    console.log('3. Verify all environment variables are set correctly');
     process.exit(1);
   }
 }

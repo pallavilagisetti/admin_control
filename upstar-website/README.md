@@ -1,6 +1,6 @@
-# SkillGraph AI - Admin Dashboard Frontend
+# Upstar Admin Dashboard Frontend
 
-A modern, responsive admin dashboard built with Next.js 14, TypeScript, and Tailwind CSS for managing the SkillGraph AI platform.
+A modern, responsive admin dashboard built with Next.js 14, TypeScript, and Tailwind CSS for managing the Upstar platform.
 
 ## 🚀 Features
 
@@ -219,7 +219,7 @@ NEXT_PUBLIC_API_URL=https://your-backend-domain.com
 
 ## 📄 License
 
-This project is part of the SkillGraph AI platform.
+This project is part of the Upstar platform.
 
 ## 🆘 Support
 
@@ -231,4 +231,4 @@ For issues and questions:
 
 ---
 
-**Note**: This is the frontend admin dashboard for SkillGraph AI. Make sure the backend API is running on port 5000 for full functionality.
+**Note**: This is the frontend admin dashboard for Upstar. Make sure the backend API is running on port 5000 for full functionality.

@@ -1,13 +1,13 @@
-# SkillGraph AI - Backend API
+# Upstar Backend API
 
-A robust Node.js backend API built with Express.js, PostgreSQL, and Redis for the SkillGraph AI platform. Provides comprehensive analytics, user management, and data processing capabilities.
+A robust Node.js backend API built with Express.js and PostgreSQL for the Upstar platform. Provides comprehensive analytics, user management, and data processing capabilities.
 
 ## 🚀 Features
 
 - **RESTful API**: Well-structured REST endpoints with proper HTTP methods
 - **Authentication & Authorization**: JWT-based auth with role-based permissions
 - **Database Integration**: PostgreSQL with comprehensive data models
-- **Queue System**: Redis-based job queue for background processing
+- **Background Processing**: Job processing for resume analysis
 - **File Processing**: Resume parsing and document analysis
 - **Analytics Engine**: Real-time analytics and reporting
 - **Error Handling**: Comprehensive error management and logging
@@ -18,7 +18,6 @@ A robust Node.js backend API built with Express.js, PostgreSQL, and Redis for th
 - **Runtime**: Node.js 18+
 - **Framework**: Express.js
 - **Database**: PostgreSQL
-- **Cache/Queue**: Redis
 - **Authentication**: JWT (jsonwebtoken)
 - **File Processing**: PDF parsing, image processing
 - **Validation**: Joi for request validation
@@ -29,7 +28,7 @@ A robust Node.js backend API built with Express.js, PostgreSQL, and Redis for th
 
 - Node.js 18+
 - PostgreSQL 12+
-- Redis 6+
+
 - npm or yarn
 
 ## 🚀 Quick Start
@@ -45,7 +44,7 @@ npm install
 Create a PostgreSQL database and update the connection string in `.env`:
 
 ```env
-DB_HOST=54.254.3.87
+DB_HOST=54.254.3.87 (ec2 public ip)
 DB_PORT=5433
 DB_NAME=resume_db
 DB_USER=developer
@@ -53,15 +52,7 @@ DB_PASSWORD=localpass
 
 ```
 
-### 3. Redis Setup
-
-Ensure Redis is running locally or update the Redis URL:
-
-```env
-REDIS_URL=redis://localhost:6379
-```
-
-### 4. Environment Configuration
+### 3. Environment Configuration
 
 Create a `.env` file with the following variables:
 
@@ -77,10 +68,6 @@ DB_NAME=resume_db
 DB_USER=developer
 DB_PASSWORD=localpass
 
-
-# Redis
-REDIS_URL=redis://localhost:6379
-
 # JWT Configuration
 JWT_SECRET=your_jwt_secret_key_change_this_in_production
 JWT_EXPIRES_IN=24h
@@ -93,7 +80,7 @@ UPLOAD_PATH=./uploads
 CORS_ORIGIN=http://localhost:3000
 ```
 
-### 5. Start Development Server
+### 4. Start Development Server
 
 ```bash
 npm run dev
@@ -181,7 +168,7 @@ The backend supports frontend-generated mock tokens for development:
 - `PUT /api/jobs/:id` - Update job
 - `DELETE /api/jobs/:id` - Delete job
 
-## 🔄 Queue System
+## 🔄 Background Processing
 
 ### Job Types
 
@@ -190,12 +177,14 @@ The backend supports frontend-generated mock tokens for development:
 - **email-notifications**: Send email notifications
 - **data-sync**: Synchronize data between systems
 
-### Queue Configuration
+### Processing Configuration
 
 ```javascript
-// Redis-based queue with Bull
-const analyticsQueue = new Bull('analytics queue', REDIS_URL);
-const resumeQueue = new Bull('resume processing', REDIS_URL);
+// Background processing without Redis
+const processResume = async (resumeId) => {
+  // Direct processing without queue
+  return await analyzeResume(resumeId);
+};
 ```
 
 ## 📈 Analytics Engine
@@ -296,10 +285,7 @@ const testUsers = [
 NODE_ENV=production
 
 # Use production database
-DATABASE_URL=postgresql://prod_user:password@prod_host:5432/skillgraph_prod
-
-# Use production Redis
-REDIS_URL=redis://prod_redis:6379
+DATABASE_URL=postgresql://prod_user:password@prod_host:5432/resume_db
 
 # Set secure JWT secret
 JWT_SECRET=your_jwt_secret_key_change_this_in_production
@@ -321,7 +307,6 @@ docker-compose up -d
 | `PORT` | Server port | 5000 |
 | `NODE_ENV` | Environment | development |
 | `DATABASE` | PostgreSQL connection | - |
-| `REDIS_URL` | Redis connection | redis://localhost:6379 |
 | `JWT_SECRET` | JWT signing secret | - |
 | `CORS_ORIGIN` | CORS allowed origin | http://localhost:3000 |
 
@@ -355,12 +340,7 @@ docker-compose up -d
 - Verify connection string
 - Check database permissions
 
-#### 2. Redis Connection Issues
-- Ensure Redis is running
-- Verify Redis URL
-- Check Redis configuration
-
-#### 3. Authentication Failures
+#### 2. Authentication Failures
 - Verify JWT secret is set
 - Check token expiration
 - Validate user credentials
@@ -382,7 +362,7 @@ DEBUG=skillgraph:* npm run dev
 
 ## 📄 License
 
-This project is part of the SkillGraph AI platform.
+This project is part of the Upstar platform.
 
 ## 🆘 Support
 
@@ -394,4 +374,4 @@ For issues and questions:
 
 ---
 
-**Note**: This backend API powers the SkillGraph AI admin dashboard. Ensure all dependencies (PostgreSQL, Redis) are running for full functionality.
+**Note**: This backend API powers the Upstar admin dashboard. Ensure all dependencies (PostgreSQL) are running for full functionality.

@@ -11,9 +11,8 @@ const { errorHandler } = require('./middleware/errorHandler');
 const notFound = require('./middleware/notFound');
 const { authenticateToken } = require('./middleware/auth');
 const requestLogger = require('./middleware/requestLogger');
-const { auditLoggers } = require('./middleware/auditLogger');
 const { performanceLogger } = require('./middleware/performanceLogger');
-const { validateInput, sanitizeInput, validateRateLimit } = require('./middleware/inputValidator');
+const { sanitizeInput } = require('./middleware/inputValidator');
 
 // Import routes
 const authRoutes = require('./routes/auth');
@@ -28,8 +27,6 @@ const systemHealthRoutes = require('./routes/system-health');
 const notificationsRoutes = require('./routes/notifications');
 const cmsRoutes = require('./routes/cms');
 const dashboardRoutes = require('./routes/dashboard');
-const jobQueueRoutes = require('./routes/job-queue');
-const healthDetailedRoutes = require('./routes/health-detailed');
 const fileUploadRoutes = require('./routes/file-upload');
 
 // Import database connection
@@ -89,7 +86,6 @@ app.get('/api/health/detailed', (req, res) => {
     uptime: process.uptime(),
     version: process.env.npm_package_version || '1.0.0',
     database: { status: 'connected' },
-    redis: { status: 'not_configured' },
     jobQueues: { status: 'running' },
     externalServices: { status: 'available' }
   });
@@ -183,8 +179,6 @@ app.use('/api/ai', authenticateToken, aiSettingsRoutes);
 app.use('/api/system', authenticateToken, systemHealthRoutes);
 app.use('/api/notifications', authenticateToken, notificationsRoutes);
 app.use('/api/cms', authenticateToken, cmsRoutes);
-app.use('/api/job-queue', authenticateToken, jobQueueRoutes);
-// app.use('/api/health', authenticateToken, healthDetailedRoutes); // Disabled - using public health endpoints above
 app.use('/api/upload', authenticateToken, fileUploadRoutes);
 
 // Error handling middleware

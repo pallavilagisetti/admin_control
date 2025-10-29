@@ -1,17 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const AWS = require('aws-sdk');
+const { S3Client, PutObjectCommand, DeleteObjectCommand } = require('@aws-sdk/client-s3');
 const { v4: uuidv4 } = require('uuid');
 const { query } = require('../config/database');
-const { asyncHandler, ValidationError } = require('../middleware/errorHandler');
+const { asyncHandler, ValidationError, NotFoundError } = require('../middleware/errorHandler');
 const { requirePermission } = require('../middleware/auth');
 
-// Configure AWS S3
-const s3 = new AWS.S3({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_REGION || 'us-east-1'
+// Configure AWS S3 v3 client
+const s3 = new S3Client({
+  region: process.env.AWS_REGION || 'us-east-1',
+  credentials: process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY ? {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+  } : undefined
 });
 
 // Configure multer for file uploads
@@ -95,20 +97,22 @@ router.post('/resume', requirePermission(['resumes:write']), upload.single('file
   const filePath = `resumes/${targetUserId}/${filename}`;
 
   try {
-    // Upload to S3
+    // Upload to S3 (v3)
     const uploadParams = {
       Bucket: process.env.AWS_S3_BUCKET,
       Key: filePath,
       Body: file.buffer,
       ContentType: file.mimetype,
       Metadata: {
-        originalName: file.originalname,
-        userId: targetUserId,
-        uploadedAt: new Date().toISOString()
+        originalname: file.originalname,
+        userid: String(targetUserId),
+        uploadedat: new Date().toISOString()
       }
     };
 
-    const uploadResult = await s3.upload(uploadParams).promise();
+    await s3.send(new PutObjectCommand(uploadParams));
+
+    const fileUrl = `https://${process.env.AWS_S3_BUCKET}.s3.${process.env.AWS_REGION || 'us-east-1'}.amazonaws.com/${filePath}`;
 
     // Save resume record to database
     const resumeId = uuidv4();
@@ -119,25 +123,20 @@ router.post('/resume', requirePermission(['resumes:write']), upload.single('file
         resumeId,
         targetUserId,
         file.originalname,
-        uploadResult.Location,
+        fileUrl,
         file.size,
         file.mimetype,
         'PENDING'
       ]
     );
 
-    // Queue resume processing job
-    const { resumeProcessingQueue } = require('../jobs/processors');
-    await resumeProcessingQueue.add('extract-skills', {
-      resumeId: resumeId
-    });
-
+    // For now, respond immediately without queueing background jobs
     res.json({
       message: 'Resume uploaded successfully',
       resumeId: resumeId,
       filename: file.originalname,
       fileSize: file.size,
-      fileUrl: uploadResult.Location
+      fileUrl: fileUrl
     });
   } catch (error) {
     throw new Error(`File upload failed: ${error.message}`);
@@ -201,30 +200,32 @@ router.post('/avatar', requirePermission(['users:write']), upload.single('file')
   }
 
   try {
-    // Upload to S3
+    // Upload to S3 (v3)
     const uploadParams = {
       Bucket: process.env.AWS_S3_BUCKET,
       Key: filePath,
       Body: file.buffer,
       ContentType: file.mimetype,
       Metadata: {
-        originalName: file.originalname,
-        userId: req.user.id,
-        uploadedAt: new Date().toISOString()
+        originalname: file.originalname,
+        userid: String(req.user.id),
+        uploadedat: new Date().toISOString()
       }
     };
 
-    const uploadResult = await s3.upload(uploadParams).promise();
+    await s3.send(new PutObjectCommand(uploadParams));
+
+    const fileUrl = `https://${process.env.AWS_S3_BUCKET}.s3.${process.env.AWS_REGION || 'us-east-1'}.amazonaws.com/${filePath}`;
 
     // Update user avatar in database
     await query(
       'UPDATE users SET avatar_url = $1, updated_at = NOW() WHERE id = $2',
-      [uploadResult.Location, req.user.id]
+      [fileUrl, req.user.id]
     );
 
     res.json({
       message: 'Avatar uploaded successfully',
-      avatarUrl: uploadResult.Location
+      avatarUrl: fileUrl
     });
   } catch (error) {
     throw new Error(`Avatar upload failed: ${error.message}`);
@@ -290,20 +291,22 @@ router.post('/document', requirePermission(['cms:write']), upload.single('file')
   const filePath = `documents/${category || 'general'}/${filename}`;
 
   try {
-    // Upload to S3
+    // Upload to S3 (v3)
     const uploadParams = {
       Bucket: process.env.AWS_S3_BUCKET,
       Key: filePath,
       Body: file.buffer,
       ContentType: file.mimetype,
       Metadata: {
-        originalName: file.originalname,
-        category: category || 'general',
-        uploadedAt: new Date().toISOString()
+        originalname: file.originalname,
+        category: String(category || 'general'),
+        uploadedat: new Date().toISOString()
       }
     };
 
-    const uploadResult = await s3.upload(uploadParams).promise();
+    await s3.send(new PutObjectCommand(uploadParams));
+
+    const fileUrl = `https://${process.env.AWS_S3_BUCKET}.s3.${process.env.AWS_REGION || 'us-east-1'}.amazonaws.com/${filePath}`;
 
     // Save document record to database
     const documentId = uuidv4();
@@ -313,7 +316,7 @@ router.post('/document', requirePermission(['cms:write']), upload.single('file')
       [
         documentId,
         file.originalname,
-        uploadResult.Location,
+        fileUrl,
         file.size,
         file.mimetype,
         category || 'general',
@@ -325,7 +328,7 @@ router.post('/document', requirePermission(['cms:write']), upload.single('file')
       message: 'Document uploaded successfully',
       documentId: documentId,
       filename: file.originalname,
-      fileUrl: uploadResult.Location
+      fileUrl: fileUrl
     });
   } catch (error) {
     throw new Error(`Document upload failed: ${error.message}`);
@@ -391,11 +394,11 @@ router.delete('/delete/:fileId', requirePermission(['files:write']), asyncHandle
     const url = new URL(file.file_path);
     const s3Key = url.pathname.substring(1); // Remove leading slash
 
-    // Delete from S3
-    await s3.deleteObject({
+    // Delete from S3 (v3)
+    await s3.send(new DeleteObjectCommand({
       Bucket: process.env.AWS_S3_BUCKET,
       Key: s3Key
-    }).promise();
+    }));
 
     // Delete from database
     await query('DELETE FROM resumes WHERE id = $1', [fileId]);

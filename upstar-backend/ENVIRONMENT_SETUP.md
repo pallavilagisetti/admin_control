@@ -35,7 +35,6 @@ This project uses a single unified environment file: `env.local`
 - `NODE_ENV` - Environment (development/production)
 - `PORT` - Server port (default: 5000)
 - `CORS_ORIGIN` - Frontend URL for CORS
-- `REDIS_HOST` - Redis host (if using Redis)
 - `AWS_ACCESS_KEY_ID` - AWS credentials (if using S3)
 - `OPENAI_API_KEY` - OpenAI API key (if using AI features)
 
@@ -79,4 +78,8 @@ If you were using `env.production` or `env.example`:
 4. ✅ **Documentation updated** - All docs reference the new file
 
 Your old environment variables are preserved in the new `env.local` file.
+
+
+
+
 

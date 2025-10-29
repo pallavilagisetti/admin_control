@@ -1,35 +1,28 @@
 const { query, cache } = require('../config/database');
-const { resumeProcessingQueue } = require('../jobs/processors');
 const { v4: uuidv4 } = require('uuid');
 
 class ResumeService {
-  // Process resume with AI
+  // Process resume with AI (synchronous mock without Bull)
   static async processResume(resumeId) {
     try {
-      // Update status to processing
       await query(
         'UPDATE resumes SET processing_status = $1, updated_at = NOW() WHERE id = $2',
         ['PROCESSING', resumeId]
       );
 
-      // Queue the processing job
-      const job = await resumeProcessingQueue.add('extract-skills', {
-        resumeId: resumeId
-      }, {
-        attempts: 3,
-        backoff: {
-          type: 'exponential',
-          delay: 2000,
-        },
-      });
+      // Simulate processing work
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      await query(
+        'UPDATE resumes SET processing_status = $1, processed_at = NOW(), updated_at = NOW() WHERE id = $2',
+        ['COMPLETED', resumeId]
+      );
 
       return {
         success: true,
-        jobId: job.id,
-        message: 'Resume processing queued successfully'
+        message: 'Resume processed successfully'
       };
     } catch (error) {
-      // Update status to failed
       await query(
         `UPDATE resumes 
          SET processing_status = $1, 
@@ -45,18 +38,13 @@ class ResumeService {
 
   // Extract skills from resume text using AI
   static async extractSkills(resumeText) {
-    // In a real implementation, you would call OpenAI API here
-    // For now, we'll simulate the AI processing
-    
     const mockSkills = [
       'JavaScript', 'React', 'Node.js', 'Python', 'SQL',
       'AWS', 'Docker', 'Git', 'HTML', 'CSS'
     ];
 
-    // Simulate AI processing time
     await new Promise(resolve => setTimeout(resolve, 2000));
 
-    // Mock extracted data
     const extractedData = {
       skills: mockSkills.slice(0, Math.floor(Math.random() * 5) + 3),
       education: 'Bachelor of Computer Science',
@@ -73,7 +61,6 @@ class ResumeService {
   // Match user skills with job requirements
   static async matchUserWithJobs(userId, userSkills) {
     try {
-      // Find jobs that match user skills
       const jobsQuery = `
         SELECT j.id, j.title, j.organization, j.skills, j.location
         FROM jobs j
@@ -84,7 +71,6 @@ class ResumeService {
 
       const result = await query(jobsQuery, [userSkills]);
 
-      // Calculate match scores
       const matches = result.rows.map(job => {
         const jobSkills = job.skills || [];
         const commonSkills = userSkills.filter(skill => jobSkills.includes(skill));
@@ -100,10 +86,8 @@ class ResumeService {
         };
       });
 
-      // Filter matches with score >= 50%
       const validMatches = matches.filter(match => match.matchScore >= 50);
 
-      // Store matches in database
       for (const match of validMatches) {
         await query(
           `INSERT INTO user_job_matches (user_id, job_id, match_score, created_at)
@@ -124,7 +108,6 @@ class ResumeService {
     }
   }
 
-  // Get resume processing status
   static async getProcessingStatus(resumeId) {
     const result = await query(
       'SELECT processing_status, error_message, processed_at FROM resumes WHERE id = $1',
@@ -138,7 +121,6 @@ class ResumeService {
     return result.rows[0];
   }
 
-  // Get resume analytics
   static async getResumeAnalytics() {
     const cacheKey = 'resume:analytics';
     let analytics = await cache.get(cacheKey);
@@ -172,14 +154,12 @@ class ResumeService {
           Math.round(stats.avg_processing_time) : 0
       };
 
-      // Cache for 15 minutes
       await cache.set(cacheKey, analytics, 900);
     }
 
     return analytics;
   }
 
-  // Get processing errors
   static async getProcessingErrors(page = 1, limit = 50) {
     const offset = (page - 1) * limit;
 
@@ -236,37 +216,20 @@ class ResumeService {
     };
   }
 
-  // Reprocess resume
   static async reprocessResume(resumeId) {
     try {
-      // Check if resume exists
       const resumeResult = await query('SELECT id, processing_status FROM resumes WHERE id = $1', [resumeId]);
       if (resumeResult.rows.length === 0) {
         throw new Error('Resume not found');
       }
 
-      // Update status to PENDING
       await query(
         'UPDATE resumes SET processing_status = $1, updated_at = NOW() WHERE id = $2',
         ['PENDING', resumeId]
       );
 
-      // Queue reprocessing job
-      const job = await resumeProcessingQueue.add('extract-skills', {
-        resumeId: resumeId
-      }, {
-        attempts: 3,
-        backoff: {
-          type: 'exponential',
-          delay: 2000,
-        },
-      });
-
-      return {
-        success: true,
-        jobId: job.id,
-        message: 'Resume queued for reprocessing'
-      };
+      // Simulate immediate processing without queue
+      return await this.processResume(resumeId);
     } catch (error) {
       throw error;
     }

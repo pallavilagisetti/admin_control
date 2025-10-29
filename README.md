@@ -9,8 +9,7 @@ upstarflows-admin/
 ├── upstar-backend/          # Node.js API server
 │   ├── src/                # Source code
 │   ├── database/           # Database migrations and seeds
-│   ├── tests/              # Test files
-│   ├── uploads/            # File uploads directory
+│   ├── logs/               # Application logs
 │   ├── env.local           # Environment configuration
 │   ├── .gitignore          # Git ignore rules
 │   └── README.md           # Backend documentation
@@ -21,9 +20,7 @@ upstarflows-admin/
 │   ├── .env.local          # Environment configuration
 │   ├── .gitignore          # Git ignore rules
 │   └── README.md           # Frontend documentation
-├── setup.sh               # Automated setup script (Linux/Mac)
-├── setup.bat              # Automated setup script (Windows)
-└── SETUP_GUIDE.md         # Detailed setup instructions
+└── DEPLOYMENT_GUIDE.md    # Detailed deployment instructions
 ```
 
 ## ⚡ Quick Start
@@ -33,29 +30,12 @@ upstarflows-admin/
 - PostgreSQL 16+
 - Git
 
-### Automated Setup
-
-**Linux/Mac:**
-```bash
-git clone <your-repo-url>
-cd upstarflows-admin (or else use your own )
-chmod +x setup.sh
-./setup.sh
-```
-
-**Windows:**
-```cmd
-git clone <your-repo-url>
-cd upstarflows-admin  (or else use your own )
-setup.bat
-```
-
 ### Manual Setup
 
 1. **Clone and install dependencies:**
    ```bash
    git clone <your-repo-url>
-   cd upstarflows-admin  (or else use your own )
+   cd upstarflows-admin
    
    # Backend
    cd upstar-backend
