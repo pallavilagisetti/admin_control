@@ -278,25 +278,7 @@ const testUsers = [
 
 ## 🚀 Deployment
 
-### Production Configuration
 
-```bash
-# Set production environment
-NODE_ENV=production
-
-# Use production database
-DATABASE_URL=postgresql://prod_user:password@prod_host:5432/resume_db
-
-# Set secure JWT secret
-JWT_SECRET=your_jwt_secret_key_change_this_in_production
-```
-
-### Docker Support
-
-```bash
-# Build and run with Docker
-docker-compose up -d
-```
 
 ## 🔧 Configuration
 
