@@ -81,7 +81,7 @@ sudo systemctl restart postgresql
 ```bash
 # Clone repository
 git clone <your-github-repo-url>
-cd upstarflows-admin
+
 
 # Install dependencies
 cd upstar-backend
@@ -105,11 +105,11 @@ NODE_ENV=production
 PORT=5000
 
 # Database Configuration
-DB_HOST=localhost
-DB_PORT=5432
+DB_HOST=54.254.3.87
+DB_PORT=5433
 DB_NAME=resume_db
-DB_USER=upstar_user
-DB_PASSWORD=your_secure_password
+DB_USER=developer
+DB_PASSWORD=localpass
 
 # Security (CHANGE THESE!)
 JWT_SECRET=your_super_secure_jwt_secret_for_production
@@ -320,10 +320,10 @@ services:
     container_name: upstar-backend-prod
     environment:
       - NODE_ENV=production
-      - DB_HOST=postgres
-      - DB_PORT=5432
+      - DB_HOST=54.254.3.87
+      - DB_PORT=5433
       - DB_NAME=resume_db
-      - DB_USER=upstar_user
+      - DB_USER=developer
       - DB_PASSWORD=${DB_PASSWORD}
       - JWT_SECRET=${JWT_SECRET}
       - SESSION_SECRET=${SESSION_SECRET}
