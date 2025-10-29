@@ -7,14 +7,14 @@ The Upstar frontend and backend are now successfully connected and working!
 ## 🚀 **Current Status**
 
 ### **Backend Server**
-- ✅ **Running on**: `http://localhost:3000`
+- ✅ **Running on**: `http://localhost:5000`
 - ✅ **Status**: Healthy and operational
 - ✅ **All API endpoints**: Working correctly
 - ✅ **CORS**: Configured for frontend access
 - ✅ **Security**: Helmet, rate limiting, compression enabled
 
 ### **Frontend Server**
-- ✅ **Running on**: `http://localhost:3001` (auto-detected port)
+- ✅ **Running on**: `http://localhost:3000` (auto-detected port)
 - ✅ **Status**: Ready for development
 - ✅ **Backend Integration**: API client configured
 - ✅ **Environment**: Properly configured
@@ -37,12 +37,12 @@ All backend API endpoints are working correctly:
 
 ### **Backend Configuration**
 ```javascript
-// Server running on port 3000
-const PORT = process.env.PORT || 3000;
+// Server running on port 5000
+const PORT = process.env.PORT || 5000;
 
 // CORS configured for frontend
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: process.env.FRONTEND_URL || 'http://localhost:5000',
   credentials: true
 }));
 ```
@@ -50,7 +50,7 @@ app.use(cors({
 ### **Frontend Configuration**
 ```javascript
 // API client configured for backend
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 ```
 
 ## 🧪 **Testing**
@@ -94,14 +94,14 @@ node test-connection.js
 ```bash
 cd upstar-backend
 npm run dev
-# Server runs on http://localhost:3000
+# Server runs on http://localhost:5000
 ```
 
 ### **2. Start Frontend**
 ```bash
 cd upstar-website
 npm run dev
-# Server runs on http://localhost:3001
+# Server runs on http://localhost:3000
 ```
 
 ### **3. Test Connection**
@@ -110,24 +110,24 @@ npm run dev
 node test-connection.js
 
 # Test frontend-backend integration
-# Open http://localhost:3001/api-test
+# Open http://localhost:3000/api-test
 ```
 
 ## 📱 **Frontend Pages**
 
-### **Dashboard** (`http://localhost:3001/dashboard`)
+### **Dashboard** (`http://localhost:3000/dashboard`)
 - Real-time backend data
 - System health monitoring
 - User statistics
 - Revenue analytics
 
-### **Users** (`http://localhost:3001/users`)
+### **Users** (`http://localhost:3000/users`)
 - User management interface
 - Search and filtering
 - User actions (activate/deactivate)
 - Login as user functionality
 
-### **API Test** (`http://localhost:3001/api-test`)
+### **API Test** (`http://localhost:3000/api-test`)
 - Comprehensive API testing
 - Connection diagnostics
 - Performance monitoring
