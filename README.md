@@ -88,18 +88,6 @@ cd ../upstar-website
 npm run test:backend
 ```
 
-## 🐳 Docker Deployment
-
-```bash
-# Start all services
-docker-compose up -d
-
-# Check logs
-docker-compose logs -f
-
-# Stop services
-docker-compose down
-```
 
 ## 📚 Documentation
 
